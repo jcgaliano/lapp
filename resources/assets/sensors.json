@@ -1,0 +1,33 @@
+{
+  "laria":{
+    "tag": "real_time",
+    "success": true,
+    "error": false,
+    "sensors": [
+      {
+        "id": 0,
+        "name": "temperature",
+        "value": 17.3,
+        "type_sensor": 1
+      },
+      {
+        "id": 1,
+        "name": "heart_rate",
+        "value": 42,
+        "type_sensor": 2
+      },
+      {
+        "id": 2,
+        "name": "oxygen_levels",
+        "value": 89,
+        "type_sensor": 3
+      },
+      {
+        "id": 3,
+        "name": "falling_status",
+        "value": 0,
+        "type_sensor": 4
+      }
+    ]
+  }
+}

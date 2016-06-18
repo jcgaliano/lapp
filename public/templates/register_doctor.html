@@ -1,0 +1,189 @@
+<div class="panel" data-ng-controller="register_DoctorController">
+    <div class="col-lg-12" style="padding: 0">
+        <div style="background: #36cf82; height: 50px;padding-top:10px !important; padding-left:5px;color: white; font-size: 20px">
+            Actualizar Perfil
+        </div>
+        <div style="margin-top: 30px">
+            <form class="form-horizontal">
+                <div class="form-group col-lg-12" style="padding-right: 10px">
+                    <div class="col-lg-3 text-center">
+                        <div id="profile_picture" class="panel"
+                             style="width: 150px;height: 150px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;">
+                            <img style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;height: 150px;width: 150px;"
+                                 data-ng-src="{{ doctor.profile_picture }}">
+                        </div>
+                        <div style="padding-left: 5px;">
+                            <input type="file" name="picture" id="picture" value="Seeee" class="custom-file-input" style="margin-top: 10px;width: 140px" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-9" style="padding-right: 0px">
+                        <div class="form-group col-lg-12" style="padding: 0px">
+                            <label for="email" class="col-lg-3 control-label text-right"style="padding-left: 0px;padding-right: 7px">
+                                Correo
+                                <span style="color: red">(*)</span>
+                            </label>
+
+                            <div class="col-lg-9">
+                                <input type="email" name="email" id="email" class="form-control" ng-model="doctor.email" placeholder="Correo">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding: 0px">
+                            <label for="name" class="col-lg-3 control-label text-right"style="padding-left: 0px;padding-right: 7px">
+                                Nombre
+                                <span style="color: red">(*)</span>
+                            </label>
+
+                            <div class="col-lg-9">
+                                <input type="text" name="name" id="name" class="form-control" ng-model="doctor.name" placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding: 0px">
+                            <label for="lastname" class="col-lg-3 control-label text-right" style="padding-left: 0px;padding-right: 7px">
+                                Apellidos
+                                <span style="color: red">(*)</span>
+                            </label>
+
+                            <div class="col-lg-9">
+                                <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Apellidos" ng-model="doctor.lastname">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding:0px">
+                            <label for="specialty" class="col-lg-3 control-label text-right" style="padding-left: 0px;padding-right: 7px">
+                                Especialidad
+                                <span style="color: red">(*)</span>
+                            </label>
+                            <div class="col-lg-4">
+                                <select class="form-control" name="specialty" id="specialty" data-ng-model="doctor.specialityid">
+                                    <option value="">Seleccione</option>
+                                    <option data-ng-repeat="doctor_speciality in doctor_specialities" data-ng-selected="doctor_speciality.id == doctor.id_speciality" value="{{ doctor_speciality.id }}">{{ doctor_speciality.speciality }}</option>
+                                </select>
+                            </div>
+                            <label for="cedula" class="col-lg-2 control-label">
+                                C&eacute;dula
+                                <span style="color: red">(*)</span>
+                            </label>
+
+                            <div class="col-lg-3" >
+                                <input type="text" id="cedula" class="form-control" ng-model="doctor.cedula">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding:0px">
+                            <label for="professional_license" class="col-lg-3 control-label text-right" style="padding-left: 0px;padding-right: 7px">
+                                L. Profecional
+                                <span style="color: red">(*)</span>
+                            </label>
+
+                            <div  class="col-lg-4">
+                                <input type="text" name="professional_license" id="professional_license" class="form-control" placeholder="Documentaci&oacute;n" ng-model="doctor.professional_license">
+                            </div>
+                        </div>
+                    </div>
+                    <!--// aqui termina lo obligao-->
+                    <div class="col-lg-12" style="padding-right: 0px">
+                        <div class="form-group col-lg-12" style="margin-bottom: 0px;margin-top: 10px;padding-left: 30px;padding-right: 0px">
+                            Otros Datos:
+                            <hr style="border-bottom: 1px solid seagreen;margin-top: 5px;margin-right: 15px;">
+                        </div>
+                        <div class="form-group col-lg-12" style="padding-right: 0px;">
+                            <label for="password" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Contrase&ntilde;a</label>
+                            <div class="col-lg-3">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Contrase&ntilde;a" ng-model="doctor.password">
+                            </div>
+                            <label for="password" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Repita Contrase&ntilde;a</label>
+
+                            <div class="col-lg-3">
+                                <input type="password" name="repassword" id="repassword" class="form-control" placeholder="Contrase&ntilde;a" ng-model="doctor.repassword">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding-right: 0px;">
+                            <label for="email" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Tel&eacute;fono</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" name="cell" id="cell" class="form-control"
+                                       placeholder="Tel&eacute;fono" ng-model="doctor.cell">
+                            </div>
+                            <label class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Nacimiento</label>
+
+                            <div class="col-lg-3">
+                                <ng-bs3-datepicker id="birthday" data-ng-model='doctor.birthday' language="es"
+                                                   date-format="YYYY-MM-DD"/>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding-right: 0px;">
+                            <label for="sex" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Sexo</label>
+
+                            <div class="col-lg-3">
+                                <select name="" id="sex" class="form-control" data-ng-model="doctor.sex">
+                                    <option value="">Seleccione</option>
+                                    <option data-ng-selected="doctor.sex == 'Femenino'" value="Femenino">
+                                        Femenino
+                                    </option>
+                                    <option data-ng-selected="doctor.sex == 'Masculino'" value="Masculino">
+                                        Masculino
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12" style="padding-right: 0px">
+                        <div class="form-group col-lg-12" style="padding-right: 0px">
+                            <label for="city" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Ciudad</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" name="city" id="city" class="form-control"
+                                       placeholder="Ciudad" ng-model="doctor.city">
+                            </div>
+                            <label for="colony" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Colonia</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" name="colony" id="colony" class="form-control"
+                                       placeholder="Colonia" ng-model="doctor.colony">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding-right: 0px">
+                            <label for="street" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">Calle</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" name="street" id="street" class="form-control"
+                                       placeholder="Calle" ng-model="doctor.street">
+                            </div>
+                            <label for="number" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">N&uacute;mero</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" name="number" id="number" class="form-control"
+                                       placeholder="N&uacute;mero" ng-model="doctor.number">
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="padding-right: 0px">
+                            <label for="postal_code" class="col-lg-3 control-label"
+                                   style="padding-right: 22px">C&oacute;digo
+                                Postal</label>
+
+                            <div class="col-lg-3">
+                                <input type="text" name="postal_code" id="postal_code" class="form-control"
+                                       placeholder="C&oacute;digo Postal" ng-model="doctor.postal_code">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group" style="margin-top: 40px;margin-bottom: 50px">
+                    <div class="col-sm-offset-4 col-sm-4">
+                        <button style="background: #36cf82;color: white" type="submit" ng-click="updateDoctor(doctor)" class="btn btn-default">Actulizar Paciente</button>
+                        <a class="btn btn-default" style="background: #36cf82;color: white" href="#/appointment">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

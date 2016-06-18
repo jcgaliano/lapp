@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form method="post" action="" class="login-form">
+                    <div class="form-group">
+                        <label for="email">Correo</label>
+                        <input type="email" class="form-control" name="email" id="email" data-ng-model="credentials.email" value="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Contraseña</label>
+                        <input type="password" class="form-control" name="password" id="password" data-ng-model="credentials.password" />
+                    </div>
+                    <div class="form-group text-center login-form-actions">
+                        <button type="button" data-ng-click="tryLogin()" class="btn btn-default">Entrar</button>
+                        <a data-ui-sref="login.recover">Problemas al entrar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+        <div class="panel">
+            <div class="panel-body text-center">
+                <a data-ui-sref="login.register">Registrarse como Médico</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+{
+  "laria": {
+    "tag": "user_info",
+    "success": true,
+    "error": false,
+    "details":{
+      "id": 0,
+      "picture": "http://cdn.images.express.co.uk/img/dynamic/79/590x/watson1-466758.jpg",
+      "name": "Dr. Paloma",
+      "lastname": "Gonzalez Robledo",
+      "address": "Canario 111",
+      "phone": "333-222-111",
+      "birthday": "2013-03-11"
+    },
+    "measurements":[
+      {
+        "id": 0,
+        "name": "blood_pressure",
+        "value": 37.3
+      },
+      {
+        "id": 1,
+        "name": "weight",
+        "value": 98
+      },
+      {
+        "id": 0,
+        "name": "glucose",
+        "value": 67
+      }
+    ]
+  }
+}

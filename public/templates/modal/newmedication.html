@@ -1,0 +1,63 @@
+<form novalidate name="newmedication_form" id="newmedication_form">
+    <div class="col-lg-12 panel" style="padding: 0">
+        <div class="modal-header" style="padding: 0px;">
+            <div class="modal-title" style="background: #36cf82; height: 50px;font-family: RobotoSlab-Regular;padding-top:10px !important; padding-left:5px;color: white; font-size: 20px;-webkit-border-radius: 7px 7px 0px 0px;-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border: 1px solid transparent;">
+            A&ntilde;adir Medicamento
+            </div>
+        </div>
+        <div class="modal-body col-lg-12">
+            <div class="col-lg-12">
+
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group col-lg-12">
+                    <label for="medications" class="col-lg-3 control-label text-right"
+                           style="font-family: RobotoSlab-Regular;padding-left: 0px;padding-top: 10px;padding-right: 0px">Medicamento<span
+                            style="color: red">(*)</span></label>
+
+                    <div class="col-lg-9">
+                        <select required class="form-control col-lg-5" name="medications" id="medications" data-ng-model="newmedications.medication_id" ng-class="{ error: newmedication_form.medications.$error.required && !newmedication_form.$pristine }">
+                        <option value="">Seleccione</option>
+                        <option data-ng-selected="medication.id == newmedications.medications_id" data-ng-repeat="medication in medications" value="{{ medication.id }}">{{ medication.medication }}</option>
+                        </select>
+                        <span class="error" ng-show="!newmedication_form.$pristine && newmedication_form.medications.$error.required">Campo obligatorio.</span>
+                    </div>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label for="dose" class="col-lg-3 control-label text-right"
+                           style="font-family: RobotoSlab-Regular;padding-left: 0px;padding-top: 10px;padding-right: 0px">Dosis<span
+                            style="color: red">(*)</span></label>
+
+                    <div class="col-lg-9">
+                        <input ng-class="{ error: newmedication_form.dose.$error.required && !newmedication_form.$pristine }" type="text" class="form-control" name="dose" id="dose" data-ng-model="newmedications.dose" ng-required="true">
+                        <span class="error" ng-show="!newmedication_form.$pristine && newmedication_form.dose.$error.required">Campo obligatorio.</span>
+                    </div>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label for="iterations" class="col-lg-3 control-label text-right"
+                           style="font-family: RobotoSlab-Regular;padding-left: 0px;padding-top: 10px;padding-right: 0px">Horario<span
+                            style="color: red">(*)</span></label>
+
+                    <div class="col-lg-9">
+                        <input ng-required="true" ng-class="{ error: newmedication_form.iterations.$error.required && !newmedication_form.$pristine }" type="text" class="form-control" name="iterations" id="iterations" data-ng-model="newmedications.iterations">
+                        <span class="error" ng-show="!newmedication_form.$pristine && newmedication_form.iterations.$error.required">Campo obligatorio.</span>
+                    </div>
+                </div>
+                <div class="form-group col-lg-12">
+                    <label for="notes" class="col-lg-3 control-label text-right"
+                           style="font-family: RobotoSlab-Regular;padding-left: 0px;padding-top: 20px;padding-right: 0px">Notas<span
+                            style="color: red">(*)</span></label>
+
+                    <div class="col-lg-9">
+                        <textarea ng-required="true" ng-class="{ error: newmedication_form.notes.$error.required && !newmedication_form.$pristine }"  name="notes" id="notes" class="form-control" rows="2" data-ng-model="newmedications.notes"></textarea>
+                        <span class="error" ng-show="!newmedication_form.$pristine && newmedication_form.notes.$error.required">Campo obligatorio.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer text-center">
+            <button ng-disabled="!newmedication_form.$valid" style="margin-right:20px;background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-success" type="button" ng-click="$close(newmedications)">Aceptar</button>
+            <button style="background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-warning" type="button" ng-click="$dismiss(false)">Cancel</button>
+        </div>
+    </div>
+</form>

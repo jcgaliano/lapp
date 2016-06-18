@@ -1,0 +1,66 @@
+<div data-ng-controller="medicationsController">
+    <div data-ng-hide="medicationseemore">
+        <div class="panel col-lg-3 text-center" style="font-size:18px;padding: 10px 0px 10px 0px;">Medicaci&oacute;n</div>
+        <div class="panel col-lg-12" style="padding: 0px">
+            <div class="panel-body" >
+                <div >
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Medicamento</th>
+                            <th>Dosis</th>
+                            <th>Horario</th>
+                            <th>Notas</th>
+                            <th>Fecha</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="medication in medications">
+                            <td>{{ medication.medication }}</td>
+                            <td>{{ medication.dose }}</td>
+                            <td>{{ medication.iterations }}</td>
+                            <td>{{ medication.notes | characters:35:true }}</td>
+                            <td>{{ medication.date | amDateFormat:'DD/MM/YYYY'}}</td>
+                            <td><i data-ng-click="seemore(medication.id, medication.appoiments_id)" title="Ver M&aacute;s" style="cursor: pointer" class="glyphicon glyphicon-book"></i></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-ng-show="medicationseemore">
+        <div class="panel col-lg-5 text-center" style="padding: 10px 0px 10px 10px;">
+            Detalles de Medicamentaci&oacute;n
+        </div>
+        <button data-ng-click="cancelseemore()" class="col-lg-offset-5 col-lg-2 text-center btn btn-default" style="padding:7px 0px 7px 0px;background: #36cf82;color: white;">
+            Regresar
+        </button>
+        <div class="panel col-lg-12">
+            <div style="margin: 20px 0px 20px 0px">
+                <div style="margin-top: 10px;">
+                 <span>Medicamento:</span><span> {{ medication_appointment.medication }}</span>
+                </div>
+                <div style="margin-top: 10px;">
+                 <span>Dosis:</span><span> {{ medication_appointment.dose }}</span>
+                </div>
+                <div style="margin-top: 10px;">
+                 <span>Horario:</span><span> {{ medication_appointment.iterations }}</span>
+                </div>
+                <div style="margin-top: 10px;">
+                 <span>Notas:</span><span> {{ medication_appointment.notes }}</span>
+                </div>
+                <div style="margin-top: 10px;">
+                 <span>Fecha:</span><span> {{ medication_appointment.date | amDateFormat:'DD/MM/YYYY'}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel col-lg-2 text-center" style="padding: 10px 0px 10px 0px;">
+            Receta
+        </div>
+        <div class="panel col-lg-12">
+            Esta es el panel de la receta
+        </div>
+    </div>
+</div>

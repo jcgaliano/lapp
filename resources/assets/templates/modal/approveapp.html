@@ -1,0 +1,31 @@
+<div class="col-lg-12 col-xs-12 col-sm-12 col-md-12 panel" style="padding: 0">
+    <div class="modal-header" style="padding: 0px;">
+        <div class="modal-title" style="background: #36cf82; height: 50px;font-family: RobotoSlab-Regular;padding-top:10px !important; padding-left:5px;color: white; font-size: 20px;-webkit-border-radius: 7px 7px 0px 0px;-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border: 1px solid transparent;">
+            Confirmar Cita
+        </div>
+    </div>
+    <div class="modal-body" style="height: 150px">
+        <div class="col-lg-7">
+        <div class="col-lg-12" style="margin-bottom: 10px;padding-bottom: 5px;font-weight: bold">Datos del Paciente:</div>
+        <div class="col-lg-12">
+            <div class="col-lg-12" style="margin-bottom: 10px"><span style="font-weight: lighter">Nombre:</span>  {{ appointment.patient_name }} {{ appointment.patient_lastname }}</div>
+            <div class="col-lg-12" style="margin-bottom: 10px"><span style="font-weight: lighter">Seguro M&eacute;dico: </span> {{ appointment.patient_seguro_medico }}</div>
+            <div class="col-lg-12" style="margin-bottom: 10px"><span style="font-weight: lighter">CURP:</span> {{ appointment.patient_curp }}</div>
+        </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="col-lg-12" style="margin-bottom: 10px;padding-bottom: 5px;font-weight: bold;">Datos de la Cita:</div>
+            <div class="col-lg-12">
+                <div class="col-lg-12" style="margin-bottom: 10px"><span style="font-weight: lighter">Fecha:</span>  {{ appointment.date | amDateFormat:'DD/MM/YYYY' }}</div>
+                <div class="col-lg-12" style="margin-bottom: 10px"><span style="font-weight: lighter">Hora: </span> {{ appointment.date | amDateFormat:'HH:MM' }}</div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button style="margin-right:20px;background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-primary" type="button" ng-click="$close(true)">Aceptar</button>
+        <button style="margin-right:20px;background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-warning" type="button" ng-click="$dismiss(false)">Cancel</button>
+    </div>
+</div>
+

@@ -1,0 +1,27 @@
+<div class="col-lg-12 panel" style="padding: 0">
+<div class="col-lg-12 panel" style="padding: 0;margin-bottom: 0px;">
+    <div class="modal-header" style="padding: 0px;">
+        <div class="modal-title" style="background: #36cf82; height: 50px;font-family: RobotoSlab-Regular;padding-top:10px !important; padding-left:5px;color: white; font-size: 20px;-webkit-border-radius: 7px 7px 0px 0px;-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border: 1px solid transparent;">
+        Confirmar Eliminacion de Paciente
+        </div>
+    </div>
+    <div class="modal-body" style="height: 150px">
+        <div class="col-lg-12">
+
+        </div>
+        <div class="col-lg-12">
+            <div class=" col-lg-2" style="padding: 0px;margin-bottom: 0px;">
+                <img style="height: 91px; width: 91px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;" data-ng-src="{{ patient.profile_picture }}">
+            </div>
+            <div class="col-lg-9" style="margin-bottom: 10px"><span style="font-weight: lighter">Nombre:</span>  {{ patient.name }} {{ patient.lastname }}</div>
+            <div class="col-lg-9" style="margin-bottom: 10px"><span style="font-weight: lighter">Seguro M&eacute;dico: </span> {{ patient.seguro_medico }}</div>
+            <div class="col-lg-9" style="margin-bottom: 10px"><span style="font-weight: lighter">CURP:</span> {{ patient.curp }}</div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button style="margin-right:20px;background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-primary" type="button" ng-click="$close(true)">OK</button>
+        <button style="margin-right:20px;background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-warning" type="button" ng-click="$dismiss(false)">Cancel</button>
+    </div>
+</div>
+</div>

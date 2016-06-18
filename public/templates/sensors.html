@@ -1,0 +1,9 @@
+<div data-ng-controller="sensorsController">
+    <div class="panel panel-default" data-ng-repeat="sensor in sensor_data.cloudsalud.sensors" >
+        <div class="panel-heading">{{ sensor.name }}</div>
+        <div class="panel-body with-padding">
+            <canvas id="line" class="chart chart-line" data="sensor.data" labels="sensor.labels"
+                    legend="false" series="sensor.series"></canvas>
+        </div>
+    </div>
+</div>

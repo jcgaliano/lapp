@@ -1,0 +1,23 @@
+<html>
+    <body>
+        <h1 class="cic" data-initial-time="10:00"></h1>
+        <h1 class="cic" data-initial-time="5:00"></h1>
+        <h1 class="cic" data-initial-time="6:00"></h1>
+        <h1 class="cic" data-initial-time="00:10"></h1>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="jquery.custom_countdown.js"></script>
+        <script>
+            $(function(){
+                $('.cic').each(function(){
+                    $(this).customCountdown($(this).attr('data-initial-time'))
+                            .on('custom_countdown.tick', function(){
+
+                            })
+                            .on('custom_countdown.finish', function(){
+                                alert('finished');
+                            });
+                });
+            });
+        </script>
+    </body>
+</html>

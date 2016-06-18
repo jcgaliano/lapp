@@ -1,0 +1,273 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+body{
+    background-color: #4ec9d4;
+}
+.container{
+    padding-top: 20px;
+}
+
+i.required{
+    color: #FF0000;
+    text-transform: none;
+    font-style: normal;
+}
+
+.panel-heading{
+    background: none #fafafa !important;
+    font-size: 22px;
+    text-transform: uppercase;
+    color: #a2a0a0 !important;
+    border-bottom: none;
+    font-family: 'Roboto-Regular';
+    height: 2.5em;
+    line-height: 2.5em;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+
+.panel-heading.green-heading, .panel-heading-mock{
+    border: none;
+    background: #36cf82 !important;
+    height: 50px;
+    color: white !important;
+    font-size: 24px;
+    text-transform: none !important;
+    padding: 0px 15px !important;
+    line-height: 50px;
+}
+
+.form-profile-picture{
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.btn{
+    border: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    background-image: none !important;
+    font-weight: normal !important;
+    text-shadow: none;
+    -moz-text-shadow: none;
+    -webkit-text-shadow: none;
+    &.btn-default{
+        background-color: #36cf82 !important;
+        color: white;
+        &:hover{
+            background-color: darken(#36cf82, 10%) !important;
+            color: #fff;
+        }
+    }
+    &.btn-danger{
+        background-color: #c0392b !important;
+        color: white;
+        &:hover{
+            background-color: darken(#c0392b, 10%) !important;
+            color: #fff;
+        }
+    }
+}
+
+label.error{
+    color: red;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+$header-logo-height: 70px;
+
+.main-header{
+    img{
+        float: left;
+        height: $header-logo-height;
+    }
+    .site-name{
+        font-family: 'Roboto-Regular';
+        float: left;
+        line-height: $header-logo-height;
+        font-size: 40px;
+        padding-left: 0.5em;
+        color: #fff;
+    }
+}
+.main-content, .sidebar{
+    margin-top: 2em;
+}
+
+.panel{
+    -webkit-border-radius: 7px;
+    -moz-border-radius: 7px;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    -webkit-box-shadow: 0px 0px 20px rgba(0,0,0,0.6);
+}
+.main-content .panel{
+    overflow: hidden;
+    border-style: none;
+}
+.panel-body.no-padding{
+    padding: 0px;
+}
+
+.panel-body.with-padding{
+    padding: 10px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.sidebar{
+    .gray-text{
+        color: #666666;
+        display: block;
+        font-size: 18px;
+    }
+    .user-name{
+        font-family: 'RobotoSlab-Regular';
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .phone-number{
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+}
+
+.sec-navigation{
+    list-style: none;
+    li{
+        width: 100%;
+        margin-bottom: 10px;
+        a{
+            width: 100%;
+            display: block;
+            padding-left: 20px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            height: 2.6em;
+            line-height: 2.6em;
+            color: #000;
+            font-size: 19px;
+            text-decoration: none;
+            font-family: 'Roboto-Regular';
+            &.active, &:hover{
+                background-color: #78f9f5;
+            }
+        }
+    }
+}
+
+table.table{
+    border-spacing: 0px;
+    border-color: transparent;
+    border-collapse: collapse;
+    margin-bottom: 0px !important;
+    tr{
+        td, th{
+            border-top: none !important;
+            border-bottom: none !important;
+            border-left: none !important;
+            border-right: 1px solid #999999;
+            &:last-child{
+                border-right: none !important;
+            }
+        }
+        th{
+            color: #fff;
+            font-size: 18px;
+            vertical-align: middle;
+            background-color: #36cf82;
+            font-family: 'RobotoSlab-Regular';
+        }
+        td{
+            padding: 8px;
+            font-size: 18px;
+            font-family: 'Roboto-Regular';
+        }
+            
+    }
+}
+.table-striped>tbody>tr:nth-of-type(odd){
+    background-color: #f2f2f2 !important;
+}
+.custom-file-input{
+    &:active, &:focus, &:hover{
+        outline: none;
+    }
+}
+.custom-file-input::-webkit-file-upload-button {
+    visibility: hidden;
+}
+.custom-file-input::before {
+    content: 'Cambiar Foto';
+    display: inline-block;
+    background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 5px;
+    text-align: center;
+    height: 30px;
+    width: 140px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    /*text-shadow: 1px 1px #fff;*/
+    /*font-weight: 700;*/
+    font-size: 17px;
+    background: #36cf82;
+    color: white;
+    font-family: RobotoSlab-Regular;
+}
+.custom-file-input:active::before {
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+.filter{
+    cursor: pointer;
+}
+
+.header-panel{
+    .panel-body{
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.span-button{
+    cursor: pointer;
+}
+
+.modal.confirm, .modal.alert, .modal.success{
+    .modal-dialog{
+        .modal-content{
+            .modal-header{
+                font-size: 20px;
+                padding: 10px 15px;
+            }
+        }
+    }
+}
+
+.list-action-button{
+    color: #696969 !important;
+    cursor: pointer !important;
+    &:hover, &:active, &:focus{
+        color: #000 !important;
+    }
+    i{
+        font-size: 20px;
+    }
+}

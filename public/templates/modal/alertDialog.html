@@ -1,0 +1,22 @@
+<div class="modal-header">
+    {{ title }}
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-2 text-center">
+            <i class="fa fa-exclamation-circle fa-5x"></i>
+        </div>
+        <div class="col-xs-10">
+            <p>
+                {{ message }}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="modal-footer text-center">
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <button class="btn btn-primary" data-ng-click="$close(true)">Yes</button>
+        </div>
+    </div>
+</div>

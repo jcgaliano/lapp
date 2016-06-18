@@ -1,0 +1,103 @@
+<div data-ng-controller="unapprovedAppointmentsController">
+    <div ng-hide="insertShow" class="col-lg-12" style="padding: 0px">
+        <div class="panel col-lg-5 text-center" style="height: 40px;padding-top: 5px;">
+            <label>Buscar</label>
+            <input type="text" name="Search" data-ng-change="toSearch(criterial)" data-ng-model="criterial" >
+            <button data-ng-click="toSearch(criterial)" type="button" class="btn btn-link glyphicon glyphicon-search" style="text-decoration: none;padding-top: 0px;font-size: 20px;padding-left: 5px;padding-right: 0px"></button>
+        </div>
+        <div ng-if="user_data.user_type == 'patient'" class="panel col-lg-3 col-lg-offset-4 text-center" style="cursor:pointer;padding:5px 0px 10px 0px;color: black" data-ng-click="showInsert()">
+            <i class="glyphicon glyphicon-plus" style="padding-top: 5px;"></i>
+            <span class="" style="padding-top: 5px; padding-left: 10px;" >Solicitar Cita</span>
+        </div>
+    </div>
+
+    <div  class="panel col-lg-12" style="padding: 0px;">
+        <div class="panel-body" >
+            <div ng-hide="insertShow">
+                <table ng-if="user_data.user_type == 'patient'" class="tablelist table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Especialidad</th>
+                            <th>Fecha</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  data-ng-repeat="appoiment in appoiments">
+                            <td>{{ appoiment.doctor_name }} {{ appoiment.doctor_lastname }}</td>
+                            <td>{{ appoiment.speciality }}</td>
+                            <td>{{ appoiment.date | amDateFormat:'DD/MM/YYYY HH:MM' }}</td>
+                            <td class="text-center">
+                                <i class="glyphicon glyphicon-trash" data-ng-click="confirmdeleteunapprovedAppointment(appoiment.appoiment_id, $index)"
+                                   title="Eliminar Solicitud" style="cursor: pointer;font-size: 18px; padding-right: 3px"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table ng-if="user_data.user_type == 'doctor'" class="tablelist table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Paciente</th>
+                        <th>CURP</th>
+                        <th>Fecha</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  data-ng-repeat="appoiment in appoiments">
+                        <td>{{ appoiment.patient_name }} {{ appoiment.patient_lastname }}</td>
+                        <td>{{ appoiment.patient_curp }}</td>
+                        <td>{{ appoiment.date | amDateFormat:'DD/MM/YYYY HH:MM' }}</td>
+                        <td class="text-center">
+                            <i style="font-size: 18px; padding-right: 3px;cursor: pointer" class="glyphicon glyphicon-ok-circle" data-ng-click="confirApproveAppointment(appoiment, $index)"
+                               title="Aprobar Solicitud" style="cursor: pointer"></i>
+                            <i style="font-size: 18px; padding-right: 3px;cursor: pointer" class="glyphicon glyphicon-trash" data-ng-click="confirmdeleteunapprovedAppointment(appoiment.appoiment_id, $index)"
+                               title="Eliminar Solicitud" style="cursor: pointer"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-12" data-ng-show="insertShow" style="padding: 0">
+                <div style="background: #36cf82; height: 50px;font-family: RobotoSlab-Regular;padding-top:10px !important; padding-left:5px;color: white; font-size: 20px">
+                    Agregar Solicitud de Cita
+                </div>
+                <div style="margin-top: 30px">
+                    <form class="form-horizontal" name="solicitar_appointment_form" id="solicitar_appointment_form">
+                        <div class="form-group" style="padding-right: 10px">
+                            <label  class="col-lg-4 control-label" style="font-family: RobotoSlab-Regular">Fecha</label>
+                            <div class="col-sm-4 col-lg-3" style="padding-top: 34px;">
+                                <ng-bs3-datepicker name="date" ng-required="true" id="date" data-ng-model='date' language="es" date-format="YYYY-MM-DD"/>
+                            </div>
+                            <div class="col-lg-3">
+                                <div>
+                                    <uib-timepicker ng-model="time" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="padding-right: 10px">
+                            <label for="doctor" class="col-sm-4 control-label" style="font-family: RobotoSlab-Regular">Doctores</label>
+                            <div class="col-sm-4 col-lg-4">
+                                <select class="form-control" name="doctor" id="doctor" data-ng-model="appointment.doctor_id">
+                                    <option value="">Seleccione</option>
+                                    <option data-ng-repeat="doctor in doctors" value="{{ doctor.id }}">{{ doctor.name }} {{ doctor.lastname }}</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-top: 40px;margin-bottom: 50px">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <input type="hidden" data-ng-model="appoimentIndex">
+                                <button style="background: #36cf82;font-family: RobotoSlab-Regular;color: white"  data-ng-show="insertShowButton" type="submit" ng-click="handleInsert()" class="btn btn-default">Solicitar Cita</button>
+                                <button style="background: #36cf82;font-family: RobotoSlab-Regular;color: white"  data-ng-show="updateShowButton" type="submit" ng-click="updateAppoiment(appoiment_id, appoimentIndex)" class="btn btn-default">Actualizar Paciente</button>
+                                <button style="background: #36cf82;font-family: RobotoSlab-Regular;color: white; margin-left: 30px" type="submit" ng-click="calcelInsertAppoiment()" class="btn btn-default">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

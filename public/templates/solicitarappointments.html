@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-sm-5">
+        <div class="panel header-panel">
+            <div class="panel-body">
+                <label>Buscar</label>
+                <input type="text" name="Search" data-ng-change="toSearch(criterial)" data-ng-model="criterial" >
+                <button data-ng-click="toSearch(criterial)" type="button" class="btn btn-link"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 col-sm-offset-4">
+        <!--<div data-ng-if="user.user_type == 'patient'">-->
+            <div class="panel header-panel">
+                <div class="panel-body">
+                    <a data-ui-sref="index.appointment_requests_add">
+                        <i class="fa fa-plus"></i> Solicitar cita
+                    </a>
+                </div>
+            </div>
+        <!--</div>-->
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel">
+            <div class="panel-body no-padding">
+                <table ng-if="user_data.user_type == 'patient'" class="tablelist table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Doctor</th>
+                        <th class="text-center">Especialidad</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  data-ng-repeat="appointment in appointments">
+                        <td>{{ appointment.doctor_name }} {{ appointment.doctor_lastname }}</td>
+                        <td>{{ appointment.speciality }}</td>
+                        <td>{{ appointment.date | amDateFormat:'DD/MM/YYYY HH:MM' }}</td>
+                        <td class="text-center">
+                            <i class="glyphicon glyphicon-trash" data-ng-click="confirmdeleteunapprovedAppointment(appointment.appointment_id, $index)"
+                               title="Eliminar Solicitud" style="cursor: pointer;font-size: 18px; padding-right: 3px"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table ng-if="user.user_type == 'doctor'" class="tablelist table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Paciente</th>
+                        <th class="text-center">CURP</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  data-ng-repeat="appointment in appointments">
+                        <td>{{ appointment.patient_name }} {{ appointment.patient_lastname }}</td>
+                        <td>{{ appointment.patient_curp }}</td>
+                        <td>{{ appointment.date | amDateFormat:'DD/MM/YYYY HH:MM' }}</td>
+                        <td class="text-center">
+                            <span class="list-action-button" data-ng-click="approveAppointment(appointment, $index)" title="Aprobar Solicitud">
+                                <i class="fa fa-check-circle-o" ></i>
+                            </span>
+                            <span class="list-action-button" title="Eliminar solicitud" data-ng-click="removeAppointment(appointment, $index)">
+                                <i class="fa fa-trash-o"></i>
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

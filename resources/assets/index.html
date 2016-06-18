@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/x-icon" href="/public/favicon.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>laria - Siteldi</title>
+
+    <!-- Bootstrap -->
+    <link href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/public/bower_components/angular-chart.js/dist/angular-chart.css" />
+    <link rel="stylesheet" href="/public/css/main/stylesheets/fonts.css"/>
+    <link rel="stylesheet" href="/public/css/main/stylesheets/screen.css"/>
+    <link rel='stylesheet' href='/public/bower_components/textAngular/dist/textAngular.css'>
+    <link rel='stylesheet' href='/public/bower_components/font-awesome/css/font-awesome.css'>
+    <link href="/public/bower_components/toastr/toastr.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='/public/bower_components/angular-loading-bar/build/loading-bar.css' type='text/css' media='all' />
+    <!--<link rel='stylesheet' href='/public/bower_components/textAngular/dist/textAngular.css' type='text/css' media='all' />-->
+
+    <!--<link rel="stylesheet" href="/public/bower_components/angular-bootstrap3-datepicker/example/css/bootstrap.css" />-->
+    <link rel="stylesheet" href="/public/bower_components/angular-bootstrap3-datepicker/example/css/ng-bs3-datepicker.css" />
+    <!--<link rel="stylesheet" href="/public/bower_components/angular-bootstrap3-datepicker/example/css/font-awesome.css" />-->
+
+
+
+    <!--<link rel="stylesheet" href="/public/bower_components/bootstrap/dist/css/bootstrap.min.css" />-->
+
+    <!--<link rel="stylesheet" href="/public/bower_components/uikit/css/uikit.min.css" />-->
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body  data-ng-app="Platease"  class="col-lg-10 col-lg-offset-1" style="font-family: RobotoSlab-Regular;">
+    <div class="container col-lg-12" data-ng-cloak="user_data" style="padding-top: 0px" data-ng-controller="MainController">
+        <div class="row">
+            <div class="col-lg-12">
+                <header class="main-header">
+                    <h1>
+                        <img style="height: 90px;width: 90px" src="/public/images/logo.png" alt="PLATEASE"/>
+                        <img class="" style="margin-top:15px;padding-bottom:15px;padding-left:10px;padding-right: 0px;width: 100px" src="/public/images/laria.png">
+                    </h1>
+                </header>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-lg-3 sidebar">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <img class="user-fhoto" style="height: 200px;width:200px;border: 9px solid #4ec9d4; -moz-border-radius: 100%;-webkit-border-radius: 100%;border-radius: 100%;" data-ng-src="{{user_data.profile_picture}}" alt="Foto de Usuario"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label ng-if="user_data.user_type == 'doctor' || user_data.user_type == 'supervisor'" class="user-name">Dr. {{ user_data.name }} {{ user_data.lastname }}</label>
+                                <h1 ng-if="user_data.user_type == 'patient'" class="user-name">{{ user_data.name }} {{ user_data.lastname }}</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <br>
+                                <span ng-if="user_data.user_type == 'supervisor'" class="user-name">{{ user_data.speciality }}</span>
+                                <p><span ng-if="user_data.user_type == 'doctor'" class="user-name">{{ doctor_speciality.speciality }}</span></p>
+                                <span ng-if="user_data.user_type == 'doctor'" class="user-name">{{ doctor_second_speciality.speciality }}</span>
+                                <span ng-if="user_data.user_type == 'patient' && user_data.birthday != '0000-00-00' " class="gray-text">Edad: {{ actual_date | amDifference : user_data.birthday : 'years' }} Años</span>
+                                <span ng-if="user_data.user_type == 'patient' && user_data.birthday == '0000-00-00' " class="gray-text">Edad: No Definida</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <br>
+                                <span ng-if="user_data.user_type == 'supervisor'" class="user-name">Curp: {{ user_data.curp }}</span>
+                                <span ng-if="user_data.user_type == 'doctor'" class="user-cedula">C&eacute;dula: {{ user_data.cedula }}</span>
+                                <span ng-if="user_data.user_type == 'patient' && user_data.cell != ''" class="gray-text phone-number">Tel&eacute;fono: {{ user_data.cell }}</span>
+                                <span ng-if="user_data.user_type == 'patient' && user_data.cell == ''" class="gray-text phone-number">Tel&eacute;fono: No Definido</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <br>
+                                <a href="/index.php/logout"  style="color: #333; text-decoration: none;"><span style="font-family: 'RobotoSlab-Regular';" ><i class="glyphicon glyphicon-log-out" style="margin-right: 5px;color: red"></i>Salir</span></a>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="sec-navigation" style=" margin: 0;padding: 0;border: 0;font: inherit;font-size: 18px;vertical-align: baseline;;list-style: none;">
+                                    <li ng-if="user_data.user_type == 'patient'"><a ng-class="navigationActiveClass('appointments')" href="#/appointments">Citas</a></li>
+                                    <li ng-if="user_data.user_type == 'patient'"><a ng-class="navigationActiveClass('solicitar_appointment')" href="#/solicitar_appointment">Solicitar Citas</a></li>
+                                    <li ng-if="user_data.user_type == 'patient'"><a ng-class="navigationActiveClass('medications')" href="#/medications">Medicamentos</a></li>
+                                    <li ng-if="user_data.user_type == 'patient'"><a ng-class="navigationActiveClass('appointment_details')" href="#/appointment_details">Reporte de consulta</a></li>
+                                    <li ng-if="user_data.user_type == 'patient'"><a ng-class="navigationActiveClass('sensors')" href="#/sensors">Monitoreo</a></li>
+                                    <li ng-if="user_data.user_type == 'patient'"><a ng-class="navigationActiveClass('update_profile')" href="#/update_patient_profile">Perfil</a></li>
+
+                                    <li ng-if="user_data.user_type == 'doctor'"><a ng-class="navigationActiveClass('appointments')" href="#/appointments">Citas</a></li>
+                                    <li ng-if="user_data.user_type == 'doctor'"><a ng-class="navigationActiveClass('solicitar_appointment')" href="#/solicitar_appointment">Solicitud de Citas</a></li>
+                                    <li ng-if="user_data.user_type == 'doctor'"><a ng-class="navigationActiveClass('patient')" href="#/patient">Paciente</a></li>
+                                    <li ng-if="user_data.user_type == 'doctor'"><a ng-class="navigationActiveClass('update_profile')" href="#/update_profile">Perfil</a></li>
+
+                                    <li ng-if="user_data.user_type == 'supervisor'"><a ng-class="navigationActiveClass('doctors')" href="#/doctors">Doctores</a></li>
+                                    <li ng-if="user_data.user_type == 'supervisor'"><a ng-class="navigationActiveClass('doctors_unapproved')" href="#/doctors_unapproved">Solicitud Doctores</a></li>
+                                    <li ng-if="user_data.user_type == 'supervisor'"><a ng-class="navigationActiveClass('update_profile_supervisor')" href="#/update_profile_supervisor">Perfil</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1">
+
+            </div>
+            <div class="col-lg-9 main-content" data-ui-view style="padding-right: 0px;padding-left: 0px">
+            </div>
+        </div>
+    </div>
+    <script src="/public/bower_components/angular-bootstrap3-datepicker/example/js/jquery.js"></script>
+    <script src="/public/bower_components/angular-bootstrap3-datepicker/example/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="/public/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="/public/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" src="/public/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script type="text/javascript" src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" src="/public/bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="/public/bower_components/angular-moment/angular-moment.min.js"></script>
+
+    <script src="/public/bower_components/Chart.js/Chart.js"></script>
+    <script src="/public/bower_components/angular-chart.js/dist/angular-chart.js"></script>
+
+    <script src="/public/bower_components/angular-bootstrap3-datepicker/example/js/moment.js"></script>
+    <script src="/public/bower_components/moment/locale/es.js"></script>
+    <script src="/public/bower_components/angular-bootstrap3-datepicker/example/js/ng-bs3-datepicker.js" charset="utf-8"></script>
+
+
+    <script type="text/javascript" src="/public/js/module.js"></script>
+    <script type="text/javascript" src="/public/js/routes.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/mainController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/appointmentsController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/appointmentDetailsController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/medicationsController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/sensorsController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/patientController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/appoiment_userController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/religionController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/doctorsController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/unapproveddoctorsController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/update_patientController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/update_doctorController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/update_supervisorController.js"></script>
+    <script type="text/javascript" src="/public/js/controllers/solicitudappointmentsController.js"></script>
+    <script type="text/javascript" src="/public/js/services/services.js"></script>
+    <script type="text/javascript" src="/public/js/ui-bootstrap-tpls-0.14.2.min.js"></script>
+
+
+    <script src='/public/bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
+    <script src='/public/bower_components/textAngular/dist/textAngular-sanitize.min.js'></script>
+    <script src='/public/bower_components/textAngular/dist/textAngular.min.js'></script>
+
+
+    <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/public/bower_components/toastr/toastr.js"></script>
+
+    <script type='text/javascript' src='/public/bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
+    <script type="text/javascript" src="/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="/public/bower_components/angular-truncate/src/truncate.js"></script>
+
+    <script src="/public/bower_components/angular-cookies/angular-cookies.js"></script>
+
+    <script type="text/javascript" src="/public/bower_components/jquery-validation/dist/jquery.validate.js"></script>
+    <script type="text/javascript" src="/public/bower_components/jquery-validation/dist/additional-methods.js"></script>
+    <script type="text/javascript" src="/public/bower_components/jquery-validation/src/localization/messages_es.js"></script>
+
+
+</body>
+</html>

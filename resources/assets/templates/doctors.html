@@ -1,0 +1,196 @@
+<div data-ng-controller="doctorsController">
+
+    <div data-ng-hide="doctorShow" class="col-lg-12" style="padding: 0px">
+        <div class="panel col-lg-5 text-center" style="height: 40px;padding-top: 5px;">
+            <label>Buscar</label>
+            <input type="text" name="Search" data-ng-change="toSearch(criterial)" data-ng-model="criterial" >
+            <button data-ng-click="toSearch(criterial)" type="button" class="btn btn-link glyphicon glyphicon-search" style="text-decoration: none;padding-top: 0px;font-size: 20px;padding-left: 5px;padding-right: 0px"></button>
+        </div>
+    </div>
+
+    <div  class="panel col-lg-12" style="padding: 0px;">
+        <div class="panel-body" >
+            <div data-ng-hide="doctorShow">
+                <table class="tablelist table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Especialidad</th>
+                            <th>L. Profecional</th>
+                            <th>C&eacute;dula</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr  data-ng-repeat="doctor in doctors">
+                            <td>{{ doctor.name }} {{ doctor.lastname }}</td>
+                            <td>{{ doctor.speciality}}</td>
+                            <td>{{ doctor.professional_license }}</td>
+                            <td>{{ doctor.cedula }}</td>
+                            <td class="text-center">
+                                <i class="glyphicon glyphicon-book" style="font-size: 18px; padding-right: 3px;cursor: pointer" data-ng-click="seemore(doctor.id)" title="Ver Doctor"></i>
+                                <i class="glyphicon glyphicon-trash" data-ng-click="confirmdelete(doctor.id)"
+                                   title="Eliminar Doctor" style="font-size: 18px; padding-right: 3px;cursor: pointer"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-lg-12" data-ng-show="doctorShow" style="padding: 0">
+                <div style="background: #36cf82; height: 50px;padding-top:10px !important; padding-left:5px;color: white; font-size: 20px">
+                    Actualizar Doctor
+                </div>
+                <div style="margin-top: 30px">
+                    <form class="form-horizontal">
+                        <div class="form-group col-lg-12" style="padding-right: 10px">
+                            <div class="col-lg-3 text-center">
+                                <div id="profile_picture" class="panel"
+                                     style="width: 150px;height: 150px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;">
+                                    <img style="-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;height: 150px;width: 150px;"
+                                         data-ng-src="{{ doctor.profile_picture }}">
+                                </div>
+
+                            </div>
+                            <div class="col-lg-9" style="padding-right: 0px">
+                                <div class="form-group col-lg-12" style="padding: 0px">
+                                    <label for="email" class="col-lg-3 control-label text-right"style="padding-left: 0px;padding-right: 7px">
+                                        Correo
+                                        <span style="color: red">(*)</span>
+                                    </label>
+
+                                    <div class="col-lg-9">
+                                        <p name="email" id="email" class="form-control" data-ng-bind="doctor.email"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12" style="padding: 0px">
+                                    <label for="name" class="col-lg-3 control-label text-right"style="padding-left: 0px;padding-right: 7px">
+                                        Nombre
+                                        <span style="color: red">(*)</span>
+                                    </label>
+
+                                    <div class="col-lg-9">
+                                        <p name="name" id="name" class="form-control" data-ng-bind="doctor.name"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12" style="padding: 0px">
+                                    <label for="lastname" class="col-lg-3 control-label text-right" style="padding-left: 0px;padding-right: 7px">
+                                        Apellidos
+                                        <span style="color: red">(*)</span>
+                                    </label>
+
+                                    <div class="col-lg-9">
+                                        <p name="lastname" id="lastname" class="form-control" data-ng-bind="doctor.lastname"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12" style="padding:0px">
+                                    <label for="specialty" class="col-lg-3 control-label text-right" style="padding-left: 0px;padding-right: 7px">
+                                        Especialidad
+                                        <span style="color: red">(*)</span>
+                                    </label>
+                                    <div class="col-lg-4">
+                                       <p id="specialty" class="form-control" data-ng-bind="doctor.speciality"></p>
+                                    </div>
+                                    <label for="cedula" style="padding-right: 0px" class="col-lg-2 control-label">
+                                        C&eacute;dula
+                                        <span style="color: red">(*)</span>
+                                    </label>
+
+                                    <div class="col-lg-3" >
+                                        <p id="cedula" class="form-control" data-ng-bind="doctor.cedula"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12" style="padding:0px">
+                                    <label for="professional_license" class="col-lg-3 control-label text-right" style="padding-left: 0px;padding-right: 7px">
+                                        L. Profecional
+                                        <span style="color: red">(*)</span>
+                                    </label>
+
+                                    <div  class="col-lg-4">
+                                        <p name="professional_license" id="professional_license" class="form-control" data-ng-bind="doctor.professional_license"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--// aqui termina lo obligao-->
+                            <div class="col-lg-12" style="padding-right: 0px">
+                                <div class="form-group col-lg-12" style="margin-bottom: 0px;margin-top: 10px;padding-left: 30px;padding-right: 0px">
+                                    Otros Datos:
+                                    <hr style="border-bottom: 1px solid seagreen;margin-top: 5px;margin-right: 15px;">
+                                </div>
+                                <div class="form-group col-lg-12" style="padding-right: 0px;">
+                                    <label for="email" class="col-lg-3 control-label"
+                                           style="padding-right: 22px">Tel&eacute;fono</label>
+
+                                    <div class="col-lg-3">
+                                        <p name="cell" id="cell" class="form-control" data-ng-bind="doctor.cell"></p>
+                                    </div>
+                                    <label class="col-lg-3 control-label"
+                                           style="padding-right: 22px">Nacimiento</label>
+
+                                    <div class="col-lg-3">
+                                        <p id="birthday" class="form-control" data-ng-bind='doctor.birthday'></p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12" style="padding-right: 0px;">
+                                    <label for="sex" class="col-lg-3 control-label"
+                                           style="padding-right: 22px">Sexo</label>
+
+                                    <div class="col-lg-3">
+                                        <p name="sex" id="sex" class="form-control" data-ng-bind="doctor.sex"></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12" style="padding-right: 0px">
+                                <div class="form-group col-lg-12" style="padding-right: 0px">
+                                    <label for="city" class="col-lg-3 control-label"
+                                           style="padding-right: 22px">Ciudad</label>
+
+                                    <div class="col-lg-3">
+                                        <p name="city" id="city" class="form-control" data-ng-bind="doctor.city"></p>
+                                    </div>
+                                    <label for="colony" class="col-lg-3 control-label"
+                                           style="padding-right: 22px">Colonia</label>
+
+                                    <div class="col-lg-3">
+                                        <p name="colony" id="colony" class="form-control" data-ng-bind="doctor.colony"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12" style="padding-right: 0px">
+                                    <label for="street" class="col-lg-3 control-label"
+                                           style="padding-right: 22px">Calle</label>
+
+                                    <div class="col-lg-3">
+                                        <p name="street" id="street" class="form-control" data-ng-bind="doctor.street"></p>
+                                    </div>
+                                    <label for="number" class="col-lg-3 control-label"
+                                           style="padding-right: 22px">N&uacute;mero</label>
+
+                                    <div class="col-lg-3">
+                                        <p name="number" id="number" class="form-control" data-ng-bind="doctor.number"></p>
+                                    </div>
+                                </div>
+                                <div class="form-group col-lg-12" style="padding-right: 0px">
+                                    <label for="postal_code" class="col-lg-3 control-label"
+                                           style="padding-right: 22px">C&oacute;digo
+                                        Postal</label>
+
+                                    <div class="col-lg-3">
+                                        <p name="postal_code" id="postal_code" class="form-control" data-ng-bind="doctor.postal_code"></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-12" style="margin-top: 40px;margin-bottom: 50px">
+                            <div class="col-lg-offset-4 col-lg-6">
+                                <button class="btn btn-default" style="background: #36cf82;color: white" data-ng-click="doctorShow = false">Regresar</button>
+                                <a   class="btn btn-default" style="background: #36cf82;color: white" href="#/doctors_unapproved">Solicitudes de Doctores</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

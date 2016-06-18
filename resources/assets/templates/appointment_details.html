@@ -1,0 +1,61 @@
+<div data-ng-controller="appointmentDetailsController">
+
+    <div class="" data-ng-hide="seemorescreen == true">
+        <div class="panel col-lg-4 text-center" style="padding: 10px 0px 10px 10px;">
+            Reporte de Consulta
+        </div>
+        <div class="panel col-lg-12" style="padding: 0px">
+            <div >
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Indicaciones</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="details in data">
+                            <td>Dr. {{ details.doctor_name }} {{ details.doctor_lastname }}</td>
+                            <td>{{ details.indications | characters:80:true}}</td>
+                            <td><i title="Ver M&aacute;s" data-ng-click="seemore(details.id)" style="cursor: pointer" class="glyphicon glyphicon-book"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12" data-ng-show="seemorescreen == true" style="padding: 0px">
+        <div class="panel col-lg-5 text-center" style="padding: 10px 0px 10px 10px;">
+            Detalles de Reporte de Consulta
+        </div>
+        <button data-ng-click="cancelseemore()" class="col-lg-offset-5 col-lg-2 text-center btn btn-default" style="padding:7px 0px 7px 0px;background: #36cf82;color: white;">
+            Regresar
+        </button>
+        <table class="table table-striped" style="">
+            <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Espacialidad(es)</th>
+                <th>Licencia Profecional</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-ng-repeat="details in data">
+                <td>Dr. {{ details.doctor_name }} {{ details.doctor_lastname }}</td>
+                <td>{{ appointment_detatail.speciality }} <span data-ng-if="appointment_detatail.second_speciality_id != 1">{{ appointment_detatail.second_speciality }}</span></td>
+                <td>{{ appointment_detatail.professional_license }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="panel col-lg-3 text-center" style="padding-top: 10px;padding-bottom:10px;font-size:18px;margin-top: 20px;">
+            Indicaciones
+        </div>
+        <div class="panel col-lg-12">
+                <div style="margin-bottom: 15px;margin-top: 15px;">
+                    <p>{{ appointment_detatail.indications }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
