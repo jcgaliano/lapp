@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>laria - Siteldi</title>
-    <link rel="stylesheet" href="{{ asset('/css/app.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/tesis/css/app.min.css') }}">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -21,6 +21,6 @@
 </div>
 
 <!-- vendors file -->
-<script type="text/javascript" src="{{ asset('/js/login.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/tesis/js/login.js') }}"></script>
 </body>
 </html>
