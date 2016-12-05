@@ -50,7 +50,7 @@ angular.module('Platease')
         $scope.triggerPasswordChange = function(){
             $modal.open({
                 animation: true,
-                templateUrl: '/tesis/templates/changePasswordModal.html',
+                templateUrl: '/templates/changePasswordModal.html',
                 controller: 'changePasswordController',
                 backdrop: true,
                 size: 'md',

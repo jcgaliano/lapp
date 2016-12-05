@@ -34,7 +34,7 @@ angular
             });
             $modal.open({
                 animation: true,
-                templateUrl: '/tesis/public/templates/modal/deleteunapproveddoctor.html',
+                templateUrl: '/public/templates/modal/deleteunapproveddoctor.html',
                 controller: 'unaproveddoctorsController',
                 size: 'md',
                 scope : $scope

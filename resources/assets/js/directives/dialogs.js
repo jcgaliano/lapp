@@ -7,13 +7,13 @@ angular.module('Platease')
 
             switch(type){
                 case 'alert':
-                    templateUrl = '/tesis/templates/modal/alertDialog.html';
+                    templateUrl = '/templates/modal/alertDialog.html';
                     break;
                 case 'success':
-                    templateUrl = '/tesis/templates/modal/successDialog.html';
+                    templateUrl = '/templates/modal/successDialog.html';
                     break;
                 case 'confirm':
-                    templateUrl = '/tesis/templates/modal/confirmDialog.html';
+                    templateUrl = '/templates/modal/confirmDialog.html';
                     break;
             };
 

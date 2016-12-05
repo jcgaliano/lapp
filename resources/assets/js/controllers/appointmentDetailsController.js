@@ -111,7 +111,7 @@ angular
 
             $modal.open({
                 animation: true,
-                templateUrl: '/tesis/templates/modal/newmedication.html',
+                templateUrl: '/templates/modal/newmedication.html',
                 controller: 'MedicationFormController',
                 size: 'md',
                 scope : $scope,
@@ -258,7 +258,7 @@ angular
 
             $modal.open({
                 animation: true,
-                templateUrl: '/tesis/templates/modal/ekgModal.html',
+                templateUrl: '/templates/modal/ekgModal.html',
                 size: 'lg',
                 scope : $scope
             }).result.then(function(readings){
