@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => []], function(){
+Route::group(['middleware' => [], 'prefix' => 'tesis'], function(){
 
     Route::get('/', [
         'as' => 'homepage',
@@ -30,37 +30,37 @@ Route::group(['middleware' => []], function(){
 
 });
 
-Route::post('/api/authenticate', [
+Route::post('/tesis/api/authenticate', [
     'as' => 'post_authenticate',
     'uses' => 'AuthenticateController@authenticate'
 ]);
 
-Route::post('/api/recover-password', [
+Route::post('/tesis/api/recover-password', [
     'as' => 'post_recover_password',
     'uses' => 'Auth\AuthController@postResetPasswordEmailAction'
 ]);
 
-Route::get('/recover-password/{token}', [
+Route::get('/tesis/recover-password/{token}', [
     'as' => 'get_recover_password',
     'uses' => 'Auth\AuthController@getPasswordResetAction'
 ]);
 
-Route::post('/recover-password/{token}', [
+Route::post('/tesis/recover-password/{token}', [
     'as' => 'post_do_recover_password',
     'uses' => 'Auth\AuthController@postPasswordResetAction'
 ]);
 
-Route::get('/api/logout', [
+Route::get('/tesis/api/logout', [
     'as' => 'api_logout',
     'uses' => 'AuthenticateController@logoutAction'
 ]);
 
-Route::get('/api/specialties', [
+Route::get('/tesis/api/specialties', [
     'as' => 'api_specialties',
     'uses' => 'SpecsController@allAction'
 ]);
 
-Route::group(['middleware' => ['jwt.auth', 'jwt.refresh'], 'prefix' => '/api'], function(){
+Route::group(['middleware' => ['jwt.auth', 'jwt.refresh'], 'prefix' => '/tesis/api'], function(){
 
     Route::get('/logged-user', [
         'as' => 'api_logged_user_data',
