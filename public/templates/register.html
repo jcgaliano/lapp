@@ -1,95 +1,91 @@
 <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
-        <div class="panel panel-default login-panel">
-            <div class="panel-heading">Solicitud Registro M&eacute;dico</div>
+        <div class="panel panel-default login-panel register-panel">
+            <div class="panel-heading green-heading">Solicitud Registro M&eacute;dico</div>
             <div class="panel-body">
-                <form class="form-horizontal" method="post" action="">
-                    <div class="form-group">
-                        <label for="email" class="col-sm-3 control-label text-right">Correo <i class="required">(*)</i></label>
-                        <div class="col-sm-9">
-                            <input type="email" class="form-control" name="email" id="email" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-sm-3 control-label text-right">Contraseña <i class="required">(*)</i></label>
-                        <div class="col-sm-9">
-                            <input type="password" class="form-control" name="password" id="password" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="password_confirm" class="col-sm-3 control-label text-right">Repetir Contraseña <i class="required">(*)</i></label>
-                        <div class="col-sm-9">
-                            <input type="password_confirm" class="form-control" name="password_confirm" id="password_confirm" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="name" class="col-sm-3 control-label text-right">Nombre <i class="required">(*)</i></label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="name" id="name" value="">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="lastname" class="col-sm-3 control-label text-right">Apellidos <i class="required">(*)</i></label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" name="lastname" id="lastname" value="">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <form class="form-horizontal" method="post" id="register-form">
                             <div class="form-group">
-                                <label for="spec_1" class="col-sm-3 control-label text-right">Especialidades <i class="required">(*)</i></label>
+                                <label for="email" class="col-sm-3 control-label text-right">Correo <i class="required">(*)</i></label>
                                 <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <select class="form-control" name="spec_1" id="spec_1">
-                                                <option value="">Seleccione...</option>
-                                                <!--@foreach($specs as $spec)-->
-                                                <!--<option value="{{ $spec->id }}">{{ $spec->speciality }}</option>-->
-                                                <!--@endforeach-->
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <select class="form-control" name="spec_2" id="spec_2">
-                                                <option value="">Seleccione...</option>
-                                                <!--@foreach($specs as $spec)-->
-                                                <!--<option value="{{ $spec->id }}">{{ $spec->speciality }}</option>-->
-                                                <!--@endforeach-->
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <input type="email" class="form-control" name="email" id="email" data-ng-model="user.email" value="">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
                             <div class="form-group">
-                                <label for="pl" class="col-sm-3 control-label text-right">Licencia profesional <i class="required">(*)</i></label>
+                                <label for="password" class="col-sm-3 control-label text-right">Contraseña <i class="required">(*)</i></label>
                                 <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <input class="form-control" name="pl" id="pl" value="" />
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label for="dni" class="col-sm-5 control-label text-right">Cédula <i class="required">(*)</i></label>
-                                                <div class="col-sm-7">
-                                                    <input type="text" class="form-control" name="dni" id="dni" />
+                                    <input type="password" class="form-control" name="password" id="password" data-ng-model="user.password" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password_confirm" class="col-sm-3 control-label text-right">Repetir Contraseña <i class="required">(*)</i></label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" name="password_confirm" id="password_confirm" data-ng-model="user.password_confirm" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-3 control-label text-right">Nombre <i class="required">(*)</i></label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="name" id="name" data-ng-model="user.name" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-3 control-label text-right">Apellidos <i class="required">(*)</i></label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="lastname" id="lastname" data-ng-model="user.lastname" value="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="spec_1" class="col-sm-3 control-label text-right">Especialidades <i class="required">(*)</i></label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="spec_1" id="spec_1" data-ng-model="user.speciality" data-ng-options="spec.id as spec.speciality for spec in specialties">
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <select class="form-control" name="spec_1" id="spec_1" data-ng-model="user.second_speciality" data-ng-options="spec.id as spec.speciality for spec in specialties">
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="pl" class="col-sm-3 control-label text-right">Licencia profesional <i class="required">(*)</i></label>
+                                        <div class="col-sm-9">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" name="pl" id="pl" data-ng-model="user.pl" value="" />
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <label for="dni" class="col-sm-5 control-label text-right">Cédula <i class="required">(*)</i></label>
+                                                        <div class="col-sm-7">
+                                                            <input type="text" class="form-control" data-ng-model="user.dni" name="dni" id="dni" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" style="">
+                                <div class="col-lg-offset-3 col-lg-6">
+                                    <button type="button" data-ng-click="registerUser()" class="btn btn-default">Enviar Solicitud</button>
+                                    <a class="btn btn-danger " data-ui-sref="login.form">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group" style="">
-                        <div class="col-lg-offset-3 col-lg-6">
-                            <button type="submit" class="btn btn-default">Enviar Solicitud</button>
-                            <a class="btn btn-danger " data-ui-sref="login.form">Cancelar</a>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

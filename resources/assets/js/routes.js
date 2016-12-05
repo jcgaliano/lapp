@@ -24,12 +24,21 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('login.register', {
                 url: '/register',
                 templateUrl: '/templates/register.html',
-                controller: 'RegisterController'
+                controller: 'RegisterController',
+                resolve: {
+                    specialties: ['Specialty', function(Specialty){
+                        return Specialty.getAll();
+                    }]
+                }
             })
             .state('login.recover', {
                 url: '/recover-password',
                 templateUrl: '/templates/recover.html',
                 controller: 'RecoverController'
+            })
+            .state('logout', {
+                url: '/logout',
+                controller: 'LogoutController'
             })
             .state('index', {
                 templateUrl: '/templates/index_template.html',
@@ -37,6 +46,9 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
                 resolve: {
                     user: ['UserData', function(UserData){
                         return UserData.getData();
+                    }],
+                    specialties: ['Specialty', function(Specialty){
+                        return Specialty.getAll();
                     }]
                 },
                 data: {
@@ -63,7 +75,23 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
                     }],
                     appointment: function(){
                         return null;
-                    }
+                    },
+                    specialties: ['Doctor', function(Doctor){
+                        return Doctor.getDoctorSpecialties();
+                    }]
+                }
+            })
+            .state('index.appointment_details', {
+                url: '/appointment-details/:id',
+                controller: 'appointmentDetailsController',
+                templateUrl: '/templates/appointments_user.html',
+                resolve: {
+                    appointment: ['Appointments', '$stateParams', function(Appointments, $stateParams){
+                        return Appointments.getAppointmentDetails($stateParams.id);
+                    }],
+                    medications: ['Medications', function(Medications){
+                        return Medications.getAllMedications();
+                    }]
                 }
             })
             .state('index.appointments_edit', {
@@ -76,6 +104,9 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
                     }],
                     appointment: ['Appointments', '$stateParams', function(Appointments, $stateParams){
                         return Appointments.getById($stateParams.id);
+                    }],
+                    specialties: ['Doctor', function(Doctor){
+                        return Doctor.getDoctorSpecialties();
                     }]
                 }
             })
@@ -96,161 +127,157 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
                 resolve: {
                     doctors: ['Doctor', function(Doctor){
                         return Doctor.getAllDoctors();
-                    }]
+                    }],
                 }
             })
             .state('index.doctor_profile', {
                 url: '/doctor-profile',
                 controller: 'update_DoctorController',
                 templateUrl: '/templates/update_profile.html',
+                resolve: {
+                    specialties: ['Specialty', function(Specialty){
+                        return Specialty.getAll();
+                    }]
+                }
+            })
+            .state('index.patients', {
+                url: '/patients',
+                controller: 'PatientsController',
+                templateUrl: '/templates/patients.html'
+            })
+            .state('index.patients_add', {
+                url: '/patients/edit/:id',
+                controller: 'AddPatientController',
+                templateUrl: '/templates/patient.html',
+                resolve: {
+                    patient: ['Patients', '$stateParams', function(Patients, $stateParams){
+
+                        if (undefined !== $stateParams.id && $stateParams.id){
+                            return Patients.getById($stateParams.id);
+                        } else {
+                            return null;
+                        }
+
+                    }]
+                }
             })
             .state('index.patient_profile', {
                 url: '/patient-profile',
                 controller: 'PatientProfileController',
-                templateUrl: '/templates/update_patient_profile.html',
+                templateUrl: '/templates/patient_profile.html',
+                resolve: {
+                    patient: ['Patients', function(Patients){
+                        return Patients.getLoggedPatient();
+                    }]
+                }
+            })
+            .state('index.patient_medications', {
+                url: '/patient-medications',
+                controller: 'PatientMedicationsController',
+                templateUrl: '/templates/patient_medications.html',
+                resolve: {
+                    meds: ['Medications', function(Medications){
+                        return Medications.getCurrentForUser();
+                    }]
+                }
             })
             .state('index.supervisor_profile', {
-                url: '/patient-profile',
+                url: '/supervisor-profile',
                 controller: 'SupervisorProfileController',
                 templateUrl: '/templates/update_profile_supervisor.html',
             })
-
+            .state('index.monitoring', {
+                url: '/monitoring',
+                controller: 'sensorsController',
+                templateUrl: '/templates/sensors.html'
+            })
+            .state('index.patient_appointment_details', {
+                url: '/done-appointments',
+                controller: 'AppointmentSummaryController',
+                templateUrl: '/templates/appointment_details.html',
+                resolve: {
+                    user_appointments: ['Appointments', function(Appointments){
+                        return Appointments.getDoneAppoiments();
+                    }]
+                }
+            })
+            .state('index.patient_appointment_summary', {
+                url: '/appointments-summary/:id',
+                controller: 'PreviousAppointmentController',
+                templateUrl: '/templates/previous_appointment.html',
+                resolve: {
+                    appointment: ['Appointments', '$stateParams', function(Appointments, $stateParams){
+                        return Appointments.getAppointmentDetails($stateParams.id);
+                    }]
+                }
+            })
+            .state('index.patient_appointment_summary_with_referer', {
+                url: '/appointments-summary/:id/:appointmentId',
+                controller: 'PreviousAppointmentController',
+                templateUrl: '/templates/previous_appointment.html',
+                resolve: {
+                    appointment: ['Appointments', '$stateParams', function(Appointments, $stateParams){
+                        return Appointments.getAppointmentDetails($stateParams.id);
+                    }]
+                }
+            })
+            .state('index.super_doctors', {
+                url: '/doctors',
+                templateUrl: '/templates/doctors_new.html',
+                controller: 'DoctorsController',
+                resolve: {
+                    doctors: ['Doctor', function(Doctor){
+                        return Doctor.getAllDoctorsExtended();
+                    }]
+                }
+            })
+            .state('index.super_pending_doctors', {
+                url: '/doctors-pending',
+                templateUrl: '/templates/doctors_pending.html',
+                controller: 'PendingDoctorsController',
+                resolve: {
+                    pending_doctors: ['Doctor', function(Doctor){
+                        return Doctor.getAllPendingDoctors();
+                    }]
+                }
+            })
+            .state('index.super_doctor_profile', {
+                url: '/doctor/:id',
+                templateUrl: '/templates/doctor_profile.html',
+                controller: 'SupervisorDoctorProfileController',
+                resolve: {
+                    doctor: ['Doctor', '$stateParams', function(Doctor, $stateParams){
+                        return Doctor.getDoctorProfile($stateParams.id);
+                    }],
+                    specialties: ['Specialty', function(Specialty){
+                        return Specialty.getAll();
+                    }]
+                }
+            })
+            .state('index.super_pending_doctor_profile', {
+                url: '/pending-doctor/:id',
+                templateUrl: '/templates/doctor_small.html',
+                controller: 'SupervisorSmallDoctorProfileController',
+                resolve: {
+                    doctor: ['Doctor', '$stateParams', function(Doctor, $stateParams){
+                        return Doctor.getDoctorProfile($stateParams.id);
+                    }],
+                    specialties: ['Specialty', function(Specialty){
+                        return Specialty.getAll();
+                    }]
+                }
+            })
         ;
-
-            // .state('index', {
-            //     url: '/',
-            //     templateUrl: '/templates/index_layout.html',
-            //     data: {
-            //         authorizedRoles: [ROLES.admin, ROLES.patient, ROLES.doctor]
-            //     }
-            // })
-            // .state('index.appointments', {
-            //     url: 'appointments',
-            //     templateUrl: '/templates/appointments.html'
-            // });
-
-        // Application routes
-        // $stateProvider
-        //     .state('login', {
-        //         url: '/login',
-        //         templateUrl: '/templates/login.html',
-        //         data: {
-        //             requiresLogin: false,
-        //         }
-        //     })
-        //     .state('sensors', {
-        //         url: '/sensors',
-        //         templateUrl: '/templates/sensors.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('appointments', {
-        //         url: '/appointments',
-        //         templateUrl: '/templates/appointments.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('appointment_details', {
-        //         url: '/appointment_details',
-        //         templateUrl: '/templates/appointment_details.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('personal_data', {
-        //         url: '/personal_data',
-        //         templateUrl: '/templates/personal_data.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('patient', {
-        //         url: '/patient',
-        //         templateUrl: '/templates/patient.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('appoiment_patient', {
-        //         url: '/appoiment_patient/:user_id/:appointment_id',
-        //         templateUrl: '/templates/appoiments_user.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('update_profile', {
-        //         url: '/update_profile',
-        //         templateUrl: '/templates/update_profile.html',
-        //         data: {
-        //             requiresLogin: true
-        //         }
-        //     })
-        //     .state('update_patient_profile', {
-        //         url: '/update_patient_profile',
-        //         templateUrl: '/templates/update_patient_profile.html',
-        //         data: {
-        //             requiresLogin: true
-        //         }
-        //     })
-        //     .state('update_profile_supervisor', {
-        //         url: '/update_profile_supervisor',
-        //         templateUrl: '/templates/update_profile_supervisor.html',
-        //         data: {
-        //             requiresLogin: true
-        //         }
-        //     })
-        //     .state('doctors', {
-        //         url: '/doctors',
-        //         templateUrl: '/templates/doctors.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('doctors_unapproved', {
-        //         url: '/doctors_unapproved',
-        //         templateUrl: '/templates/doctors_unapproved.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('solicitar_appointment', {
-        //         url: '/solicitar_appointment',
-        //         templateUrl: '/templates/solicitarappointments.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     })
-        //     .state('medications', {
-        //         url: '/medications',
-        //         templateUrl: '/templates/medications.html',
-        //         data: {
-        //             requiresLogin: true,
-        //             validated : true
-        //         }
-        //     });
     }
 ]).run(['$state', '$rootScope', '$http', '$timeout', '$cookies','$cookieStore', '$location', '$auth',
     function($state, $rootScope, $http, $timeout, $cookies, $cookieStore, $location, $auth){
 
     $rootScope.$on('$stateChangeStart', function(evt, to){
-
         if (undefined !== to.data && undefined !== to.data.authorizedRoles && to.data.authorizedRoles.length > 0){
             if (!$auth.isAuthenticated()){
                 evt.preventDefault();
                 $state.go('login.form');
             }
         }
-
     });
 }]);

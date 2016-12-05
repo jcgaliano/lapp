@@ -14,56 +14,43 @@
             <div class="col-lg-3 sidebar">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <img class="user-fhoto" style="height: 200px;width:200px;border: 9px solid #4ec9d4; -moz-border-radius: 100%;-webkit-border-radius: 100%;border-radius: 100%;" data-ng-src="{{user.profile_picture}}" alt="Foto de Usuario"/>
+                        <div class="profile-info">
+                            <div class="row profile-picture-placeholder">
+                                <div class="col-lg-12 text-center">
+                                    <img class="user-fhoto" style="height: 200px;width:200px;border: 9px solid #4ec9d4; -moz-border-radius: 100%;-webkit-border-radius: 100%;border-radius: 100%;" data-ng-src="{{user.profile_picture}}" alt="Foto de Usuario"/>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 text-center">
-                                <label ng-if="user.user_type == 'doctor' || user.user_type == 'supervisor'" class="user-name">Dr. {{ user.name }} {{ user.lastname }}</label>
-                                <h1 ng-if="user.user_type == 'patient'" class="user-name">{{user.name }} {{ user.lastname }}</h1>
-                                <hr>
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <label ng-if="user.user_type == 'doctor' || user.user_type == 'supervisor'" class="user-name">Dr. {{ user.name }} {{ user.lastname }}</label>
+                                    <label ng-if="user.user_type == 'patient'" class="user-name">{{user.name }} {{ user.lastname }}</label>
+                                    <p class="specialty" ng-show="user.user_type == 'supervisor'" >{{ user.speciality_text }}</p>
+                                    <p class="specialty" ng-show="user.user_type == 'doctor' && specialty_text" >{{ specialty_text }}</p>
+                                    <p class="specialty" ng-show="user.user_type == 'doctor' && second_specialty_text" >{{ second_specialty_text }}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <span ng-show="user.user_type == 'supervisor'" class="user-name">{{ user.speciality }}</span>
-                                <span ng-show="user.user_type == 'doctor'" class="user-name">{{ doctor_speciality.speciality }}</span>
-                                <span ng-show="user.user_type == 'doctor'" class="user-name">{{ doctor_second_speciality.speciality }}</span>
-                                <span ng-show="user.user_type == 'patient' && user.birthday != '0000-00-00' " class="gray-text">Edad: {{ actual_date | amDifference : user.birthday : "years" }} Años</span>
-                                <span ng-show="user.user_type == 'patient' && user.birthday == '0000-00-00' " class="gray-text">Edad: No Definida</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <span ng-show="user.user_type == 'supervisor'" class="user-name">Curp: {{ user.curp }}</span>
-                                <span ng-show="user.user_type == 'doctor'" class="user-cedula">C&eacute;dula: {{ user.cedula }}</span>
-                                <span ng-show="user.user_type == 'patient' && user.cell != ''" class="gray-text phone-number">Tel&eacute;fono: {{ user.cell }}</span>
-                                <span ng-show="user.user_type == 'patient' && user.cell == ''" class="gray-text phone-number">Tel&eacute;fono: No Definido</span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <a href="/index.php/logout"  style="color: #333; text-decoration: none;"><span style="font-family: 'RobotoSlab-Regular';" ><i class="glyphicon glyphicon-log-out" style="margin-right: 5px;color: red"></i>Salir</span></a>
+                            <div class="row logout-wrapper">
+                                <div class="col-lg-12 text-center">
+                                    <a class="logout-btn" data-ui-sref="logout"><i class="fa fa-ban fa-lg"></i> Salir</a>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="sec-navigation" style=" margin: 0;padding: 0;border: 0;font: inherit;font-size: 18px;vertical-align: baseline;;list-style: none;">
-                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('appointments')" href="#/appointments">Citas</a></li>
-                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('solicitar_appointment')" href="#/solicitar_appointment">Solicitar Citas</a></li>
-                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('medications')" href="#/medications">Medicamentos</a></li>
-                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('appointment_details')" href="#/appointment_details">Reporte de consulta</a></li>
-                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('sensors')" href="#/sensors">Monitoreo</a></li>
-                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('update_profile')" href="#/update_patient_profile">Perfil</a></li>
-                                    <li ng-if="user.user_type == 'doctor'"><a ng-class="navigationActiveClass('appointments')" data-ui-sref="index.appointments" >Citas</a></li>
+                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('index.appointments')" href="#/appointments">Citas</a></li>
+                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('index.appointment_requests')" href="#/appointment-requests">Solicitudes de Cita</a></li>
+                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('index.patient_medications')" data-ui-sref="index.patient_medications">Medicamentos</a></li>
+                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('index.patient_appointment_details')" data-ui-sref="index.patient_appointment_details">Reporte de consulta</a></li>
+                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('index.monitoring')" data-ui-sref="index.monitoring">Monitoreo</a></li>
+                                    <li ng-if="user.user_type == 'patient'"><a ng-class="navigationActiveClass('index.patient_profile')" data-ui-sref="index.patient_profile">Perfil</a></li>
+                                    <li ng-if="user.user_type == 'doctor'"><a ng-class="navigationActiveClass('index.appointments')" data-ui-sref="index.appointments" >Citas</a></li>
                                     <li ng-if="user.user_type == 'doctor'"><a ng-class="navigationActiveClass('solicitar_appointment')" data-ui-sref="index.appointment_requests">Solicitud de Citas</a></li>
-                                    <li ng-if="user.user_type == 'doctor'"><a ng-class="navigationActiveClass('patient')" href="#/patient">Paciente</a></li>
-                                    <li ng-if="user.user_type == 'doctor'"><a ng-class="navigationActiveClass('update_profile')" data-ui-sref="index.doctor_profile">Perfil</a></li>
-                                    <li ng-if="user.user_type == 'supervisor'"><a ng-class="navigationActiveClass('doctors')" href="#/doctors">Doctores</a></li>
-                                    <li ng-if="user.user_type == 'supervisor'"><a ng-class="navigationActiveClass('doctors_unapproved')" href="#/doctors_unapproved">Solicitud Doctores</a></li>
-                                    <li ng-if="user.user_type == 'supervisor'"><a ng-class="navigationActiveClass('update_profile_supervisor')" href="#/update_profile_supervisor">Perfil</a></li>
+                                    <li ng-if="user.user_type == 'doctor'"><a ng-class="navigationActiveClass(['index.patients', 'index.patients_add'])" data-ui-sref="index.patients">Pacientes</a></li>
+                                    <li ng-if="user.user_type == 'doctor'"><a ng-class="navigationActiveClass('index.doctor_profile')" data-ui-sref="index.doctor_profile">Perfil</a></li>
+                                    <li ng-if="user.user_type == 'supervisor'"><a ng-class="navigationActiveClass('index.super_doctors')" data-ui-sref="index.super_doctors">Doctores</a></li>
+                                    <li ng-if="user.user_type == 'supervisor'"><a ng-class="navigationActiveClass('index.super_pending_doctors')" data-ui-sref="index.super_pending_doctors">Solicitud Doctores</a></li>
+                                    <li ng-if="user.user_type == 'supervisor'"><a ng-class="navigationActiveClass('index.supervisor_profile')" data-ui-sref="index.supervisor_profile">Perfil</a></li>
                                 </ul>
                             </div>
                         </div>

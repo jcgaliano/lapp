@@ -7,16 +7,14 @@
             <i class="fa fa-exclamation-circle fa-5x"></i>
         </div>
         <div class="col-xs-10">
-            <p>
-                {{ message }}
-            </p>
+            <p data-ng-bind-html="message"></p>
         </div>
     </div>
 </div>
-<div class="modal-footer text-center">
+<div class="modal-footer text-right">
     <div class="row">
         <div class="col-xs-12 text-center">
-            <button class="btn btn-primary" data-ng-click="$close(true)">Yes</button>
+            <button class="btn btn-success" data-ng-click="$close(true)">Aceptar</button>
         </div>
     </div>
 </div>

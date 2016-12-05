@@ -2,12 +2,13 @@
 
 namespace App;
 
+use App\Exceptions\ProfileNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
 
-    protected $table = 'laria_users';
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +31,14 @@ class User extends Authenticatable
     public static function findByEmail($email){
 
         return self::where('email', $email)->first();
+    }
 
+    public static function findByToken($token){
+        return self::where('activation_token', $token)->first();
+    }
+
+    public function patient(){
+        return $this->hasOne('App\Patient');
     }
 
     public function toPublicArray($options = 0)
@@ -43,29 +51,51 @@ class User extends Authenticatable
         switch($this->user_type){
             case '1':
                 //doctor
-                $result['user_type'] = 'doctor';
+                try{
 
-                $profile = Doctor::where('user_id', $this->id)->first()->toArray();
+                    $result['user_type'] = 'doctor';
 
-                $result = array_merge($result, $profile);
+                    $profile = Doctor::where('user_id', $this->id)->first()->toArray();
+
+                    $result = array_merge($result, $profile);
+
+                } catch (\Exception $e){
+                    throw new ProfileNotFoundException('Las credenciales proporcionadas son inválidas');
+                }
 
                 break;
             case '2':
                 //patient
-                $result['user_type'] = 'patient';
+                try{
 
-                $profile = Patient::where('user_id', $this->id)->first()->toArray();
+                    $result['user_type'] = 'patient';
 
-                $result = array_merge($result, $profile);
+                    $profile = Patient::where('user_id', $this->id)->first()->toArray();
+
+                    $result = array_merge($result, $profile);
+
+                } catch (\Exception $e){
+
+                    throw new ProfileNotFoundException('Las credenciales proporcionadas son inválidas');
+
+                }
 
                 break;
             case '3':
                 //supervisor
-                $result['user_type'] = 'supervisor';
+                try{
 
-                $profile = Supervisor::where('user_id', $this->id)->first()->toArray();
+                    $result['user_type'] = 'supervisor';
 
-                $result = array_merge($result, $profile);
+                    $profile = Supervisor::where('user_id', $this->id)->first()->toArray();
+
+                    $result = array_merge($result, $profile);
+
+                } catch (\Exception $e){
+
+                    throw new ProfileNotFoundException('Las credenciales proporcionadas son inválidas');
+
+                }
 
                 break;
         }
@@ -73,4 +103,7 @@ class User extends Authenticatable
         return $result;
     }
 
+    public function fullName(){
+        return $this->name.' '.$this->lastname;
+    }
 }

@@ -3,34 +3,46 @@
         <div class="panel panel-default">
             <div class="panel-heading green-heading">Programar cita</div>
             <div class="panel-body">
-                <form novalidate id="appointment_form" name="appointment_form" class="form-horizontal">
-                    <div class="form-group" style="padding-right: 10px">
-                        <label  class="col-lg-4 control-label" style="font-family: RobotoSlab-Regular;padding-top: 40px;">Fecha</label>
-                        <div class="col-sm-4 col-lg-3" style="padding-top: 34px;">
-                            <ng-bs3-datepicker id="date" data-ng-model='date' ng-required="true" language="es" date-format="YYYY-MM-DD"/>
-                        </div>
-                        <div class="col-lg-3">
-                            <div>
-                                <uib-timepicker ng-model="time" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <form novalidate id="appointment_form" name="appointment_form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Fecha</label>
+                                <div class="col-sm-8">
+                                    <ng-bs3-datepicker id="date" data-ng-model='date' ng-required="true" language="es" date-format="YYYY-MM-DD"/>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Hora</label>
+                                <div class="col-sm-8">
+                                    <uib-timepicker ng-model="time" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Área</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="area_id" name="area_id" data-ng-model="appointment.area_id" data-ng-options="area.id as area.name for area in specialties">
+                                        <option value="">Seleccione el área de la consulta</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Paciente</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="patient" name="patient" data-ng-model="appointment.patient_id" data-ng-options="patient.id as patient.name for patient in patients">
+                                        <option value="">Seleccione uno de sus pacientes</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 40px;margin-bottom: 50px">
+                                <div class="col-sm-8 col-sm-offset-4">
+                                    <button class="btn btn-default" type="submit" ng-click="handleInsert()">Agendar Cita</button>
+                                    <a data-ui-sref="index.appointments" class="btn btn-danger">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group" style="padding-right: 10px">
-                        <label for="patient" class="col-sm-4 control-label" style="font-family: RobotoSlab-Regular">Paciente</label>
-                        <div class="col-sm-4 col-lg-4">
-                            <select class="form-control" id="patient" name="patient" data-ng-model="appointment.patient_id">
-                                <option value="">Seleccione</option>
-                                <option ng-selected="patient.id == appointment.patient_id" data-ng-repeat="patient in patients" value="{{ patient.id }}">{{ patient.user.name }} {{ patient.user.lastname }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group" style="margin-top: 40px;">
-                        <div class="col-sm-offset-4 col-sm-8">
-                            <button class="btn btn-default" type="submit" ng-click="handleInsert()">Agendar Cita</button>
-                            <a data-ui-sref="index.appointments" class="btn btn-danger">Cancelar</a>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

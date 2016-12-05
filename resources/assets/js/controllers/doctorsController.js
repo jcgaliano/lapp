@@ -1,61 +1,117 @@
 angular
     .module('Platease')
-    .controller('doctorsController', ['$scope', 'Doctor', '$q', 'Patients', '$http', '$modal', function ($scope, Doctor, $q, Patients, $http, $modal) {
+    .controller('DoctorsController', ['$scope', 'Doctor', 'Patients', 'doctors', '$modal', function ($scope, Doctor, Patients, doctors, $modal) {
 
-        toastr.options.closeButton = true;
-        $scope.updateShow = false;
+        $scope.doctors = doctors;
 
-        Doctor.getAllDoctors().then(function(doctors){
-            $scope.doctors = doctors;
-        }, function(){
-            toastr.error('Error al Traer Lista de Doctores');
-        });
+        $scope.removeDoctor = function(doctor, index){
 
-        $scope.deleteDoctor = function(doctor_id){
-            Doctor.deleteDoctor(doctor_id).then(function(){
-                Doctor.getAllDoctors().then(function(doctors){
-                    $scope.doctors = doctors;
-                }, function(){
-                    toastr.error('Error al Traer Lista de Doctores');
-                });
-                toastr.success('Operación Realizada Satisfactoriamente');
-            }, function(){
-                toastr.error('Error al Eliminar el Doctor');
-            });
-        };
+            $scope.doctor = doctor;
 
-        $scope.confirmdelete = function(doctor_id){
-
-            Doctor.getADoctorByIdpassed(doctor_id).then(function(doctor){
-             $scope.doctor = doctor;
-            }, function(){
-                toastr.error('Error al traer al Doctor');
-            });
             $modal.open({
+                templateUrl: '/templates/modal/deletedoctor.html',
                 animation: true,
-                templateUrl: '/public/templates/modal/deletedoctor.html',
-                controller: 'doctorsController',
                 size: 'md',
                 scope : $scope
-            }).result.then(function () {
-                    $scope.deleteDoctor(doctor_id);
-                }, function () {
-                    toastr.info('Cancelada Satisfactoriamente');
-                });
+            }).result.then(function(res){
+                if (res){
+                    Doctor.deleteDoctor(doctor.id).then(function(res){
+
+                        if (res.status == 'success'){
+
+                            toastr.success(res.message);
+
+                            $scope.doctors.splice(index, 1);
+
+                        } else {
+                            toastr.error(res.message);
+                        }
+
+                    }, function(){
+                        toastr.error('Ha ocurrido un error al eliminar el doctor, inténtelo nuevamente');
+                    });
+                }
+            });
         };
 
-        $scope.seemore = function(doctor_id){
+    }])
+    .controller('SupervisorDoctorProfileController', ['$scope', 'doctor', 'specialties', function($scope, doctor, specialties){
 
-            $scope.doctorShow = true;
+        $scope.doctor = doctor;
+        $scope.specialties = specialties;
 
-            Doctor.getADoctorByIdpassed(doctor_id).then(function(doctor){
-                $scope.doctor = doctor;
-            }, function(){
-                toastr.error('Error al traer medico');
-            });
-
-
-
+        //get the main specialty
+        for (var i in specialties){
+            if (specialties[i].id == doctor.speciality){
+                $scope.main_specialty = specialties[i].speciality;
+            }
         }
+
+        for (var i in specialties){
+            if (specialties[i].id == doctor.second_speciality){
+                $scope.second_specialty = specialties[i].speciality;
+            }
+        }
+
+    }])
+    .controller('SupervisorSmallDoctorProfileController', ['$scope', 'doctor', 'specialties', 'Doctor', '$state', function($scope, doctor, specialties, Doctor, $state){
+
+        $scope.doctor = doctor;
+        $scope.specialties = specialties;
+
+        //get the main specialty
+        for (var i in specialties){
+            if (specialties[i].id == doctor.speciality){
+                $scope.main_specialty = specialties[i].speciality;
+            }
+        }
+
+        for (var i in specialties){
+            if (specialties[i].id == doctor.second_speciality){
+                $scope.second_specialty = specialties[i].speciality;
+            }
+        }
+
+        $scope.certifyDoctor = function(doc, status){
+            Doctor.certify(doctor.id, status)
+                .then(function(res){
+                    if (res.status == 'success'){
+                        if (status == true){
+                            toastr.success('El doctor ha sido certificado satisfactoriamente');
+                        } else {
+                            toastr.info('La solicitud ha sido denegada satisfactoriamente');
+                        }
+                    } else {
+                        toastr.error(res.message);
+                    }
+                }, function(){
+                    toastr.error('Ha ocurrido un error al certificar el doctor');
+                })
+        };
+
+    }])
+    .controller('PendingDoctorsController', ['$scope', 'pending_doctors', 'Doctor', 'dialog', function($scope, pending_doctors, Doctor, dialog){
+
+        $scope.pending_doctors = pending_doctors;
+
+        $scope.removeDoctorRequest = function(doctor, index){
+            dialog.confirm('Aviso', '¿Está seguro de que desea eliminar la solicitud del doctor?').then(function(res){
+                if (res == true){
+                    Doctor.deletePendingDoctor(doctor.id)
+                        .then(function(res){
+                            if (res.status == 'success'){
+                                $scope.pending_doctors.splice(index, 1);
+                                toastr.success('La solicitud ha sido eliminada satisfactoriamente');
+                            } else {
+                                toastr.error(res.message);
+                            }
+                        }, function(){
+                            toastr.error('Ha ocurrido un error al eliminar la solicitud');
+                        });
+                }
+            }, function(){
+
+            });
+        };
 
     }]);

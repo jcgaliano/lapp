@@ -1,0 +1,506 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"num",
+				"num_requests"
+			],
+			[
+				"data",
+				"dataType"
+			],
+			[
+				"request",
+				"requestedDataByDevice"
+			],
+			[
+				"senso",
+				"sensor_data"
+			],
+			[
+				"connected",
+				"connectedSockets"
+			],
+			[
+				"generate",
+				"generateEkgData"
+			],
+			[
+				"random",
+				"random"
+			],
+			[
+				"genera",
+				"generateEkgData"
+			],
+			[
+				"gene",
+				"generateRandomValue"
+			],
+			[
+				"genea",
+				"getRandomRangedValuesArray"
+			],
+			[
+				"device",
+				"deviceId"
+			],
+			[
+				"public",
+				"public_folder"
+			],
+			[
+				"f",
+				"fs"
+			],
+			[
+				"cate",
+				"category_id"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "index.js",
+			"settings":
+			{
+				"buffer_size": 5058,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "dataServer.js",
+			"settings":
+			{
+				"buffer_size": 4492,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "old.js",
+			"settings":
+			{
+				"buffer_size": 4098,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/DEV/TrendyTourist/code/notificationServer/app_mysql.js",
+			"settings":
+			{
+				"buffer_size": 11011,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "node_modules/socket.io/Readme.md",
+			"settings":
+			{
+				"buffer_size": 12029,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/index.html",
+			"settings":
+			{
+				"buffer_size": 275,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/DEV/Electrocardiograma/js/ekg_directive.js",
+			"settings":
+			{
+				"buffer_size": 3303,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 67.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 575.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Volumes/DEV/YAA/realtime",
+		"/Volumes/DEV/YAA/realtime/node_modules",
+		"/Volumes/DEV/YAA/realtime/node_modules/socket.io",
+		"/Volumes/DEV/YAA/realtime/node_modules/socket.io/node_modules",
+		"/Volumes/DEV/YAA/realtime/node_modules/socket.io/node_modules/socket.io-client",
+		"/Volumes/DEV/YAA/realtime/public"
+	],
+	"file_history":
+	[
+		"/Users/asolenzal/Desktop/carrasco_tags_2016-09-29.sql",
+		"/Volumes/DEV/YAA/realtime/old.js",
+		"/Volumes/DEV/YAA/realtime/public/test.txt",
+		"/Volumes/DEV/YAA/realtime/realtime.sublime-project",
+		"/Volumes/DEV/TrendyTourist/code/notificationServer/app_mysql.js",
+		"/Volumes/DEV/TrendyTourist/code/notificationServer/app.js",
+		"/Volumes/DEV/TrendyTourist/code/notificationServer/app mongo.js",
+		"/Volumes/DEV/uberclone/HubTaxi-Server/dump/mydb/categories.bson",
+		"/Volumes/DEV/TrendyTourist/code/notificationServer/schemas.js",
+		"/Volumes/DEV/TrendyTourist/code/notificationServer/app mysql.js",
+		"/Users/asolenzal/Desktop/ritmo cardiaco , parametros de confianza son entre",
+		"/Volumes/DEV/laria/public/js/directives/widget.js",
+		"/Volumes/DEV/UCM/PW/base_dato/proyecto.backup",
+		"/Volumes/DEV/YAA/vapp/resources/views/main/viral.blade.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"						{\n							\"id\": 5,\n							\"name\": \"height\",\n							\"value\": generateRandomValue(180,180),\n							\"type_sensor\": 6\n						}\n",
+			"console.log",
+			"ok",
+			"		if (data.dataType['sensor_data'] == true){\n			bindApiFetchAndDataSending(socket, data.deviceId, 'sensor_data');	\n		}\n		\n",
+			"client",
+			"					{\n						\"id\": 2,\n						\"name\": \"oxygen_levels\",\n						\"value\": generateRandomValue(80,100),\n						\"type_sensor\": 3\n					},\n",
+			"randomValue"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5058,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3359,
+								3507
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2276.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "dataServer.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4492,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3265,
+								3265
+							]
+						],
+						"settings":
+						{
+							"auto_name": "",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2932.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "old.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4098,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								92,
+								4098
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Volumes/DEV/TrendyTourist/code/notificationServer/app_mysql.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11011,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9097,
+								9097
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3911.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "node_modules/socket.io/Readme.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12029,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								854,
+								892
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "public/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 275,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								267,
+								267
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Volumes/DEV/Electrocardiograma/js/ekg_directive.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3303,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2408,
+								2408
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "realtime.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 279.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -3,34 +3,49 @@
         <div class="panel">
             <div class="panel-heading green-heading">Solicitar cita médica</div>
             <div class="panel-body">
-                <form class="form-horizontal" name="solicitar_appointment_form" id="solicitar_appointment_form">
-                    <div class="form-group" style="padding-right: 10px">
-                        <label  class="col-lg-4 control-label" style="font-family: RobotoSlab-Regular">Fecha</label>
-                        <div class="col-sm-4 col-lg-3" style="padding-top: 34px;">
-                            <ng-bs3-datepicker name="date" ng-required="true" id="date" data-ng-model='date' language="es" date-format="YYYY-MM-DD"/>
-                        </div>
-                        <div class="col-lg-3">
-                            <div>
-                                <uib-timepicker ng-model="time" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <form class="form-horizontal" name="appointment_form" id="appointment_form">
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">Fecha</label>
+                                <div class="col-sm-8">
+                                    <ng-bs3-datepicker name="date" ng-required="true" id="date" data-ng-model='date' language="es" date-format="YYYY-MM-DD"/>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Hora</label>
+                                <div class="col-sm-8">
+                                    <div>
+                                        <uib-timepicker ng-model="time" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">Doctor</label>
+                                <div class="col-sm-8">
+                                    <select data-ng-change="selectDoctor()" class="form-control" name="doctor" id="doctor" data-ng-model="appointment.doctor_id" data-ng-options="doctor.id as doctor.full_name for doctor in doctors">
+                                        <option value="">Seleccione</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Área</label>
+                                <div class="col-sm-8">
+                                    <select data-ng-disabled="!specialties" class="form-control" id="area_id" name="area_id" data-ng-model="appointment.area_id" data-ng-options="area.id as area.name for area in specialties">
+                                        <option value="">Seleccione el área de la consulta</option>
+                                    </select>
+                                    <p data-ng-if="loading_doctor_specs" class="help-block">Cargando especialidades...</p>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-top: 40px;margin-bottom: 50px">
+                                <div class="col-sm-offset-4 col-sm-8">
+                                    <button class="btn btn-default" type="submit" ng-click="handleInsert()">Solicitar Cita</button>
+                                    <a data-ui-sref="index.appointment_requests" class="btn btn-danger">Cancelar</a>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-group" style="padding-right: 10px">
-                        <label for="doctor" class="col-sm-4 control-label" style="font-family: RobotoSlab-Regular">Doctores</label>
-                        <div class="col-sm-4 col-lg-4">
-                            <select class="form-control" name="doctor" id="doctor" data-ng-model="appointment.doctor_id">
-                                <option value="">Seleccione</option>
-                                <option data-ng-repeat="doctor in doctors" value="{{ doctor.id }}">{{ doctor.full_name }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group" style="margin-top: 40px;margin-bottom: 50px">
-                        <div class="col-sm-offset-4 col-sm-8">
-                            <button class="btn btn-default" type="submit" ng-click="handleInsert()">Solicitar Cita</button>
-                            <a data-ui-sref="index.appointment_requests" class="btn btn-danger">Cancelar</a>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

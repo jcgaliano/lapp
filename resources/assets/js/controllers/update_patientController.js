@@ -7,7 +7,6 @@ angular
         var archivos = document.getElementById('picture');
         archivos.addEventListener('change', upload, false);
 
-
         function upload(e) {
             var archivos = e.target.files;
             var archivo = archivos[0];

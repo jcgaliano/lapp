@@ -22,5 +22,50 @@ angular
         }, function(){
 
         })
+    }])
+    .controller('PatientMedicationsController', ['$scope', 'meds', 'Medications', '$modal', function($scope, meds, Medications, $modal){
+
+        $scope.medications = meds;
+
+        $scope.medicationDone = function(medication){
+            if (!medication.done){
+                Medications.completeCycle(medication.id)
+                    .then(function(res){
+                        if (res.status == 'success'){
+
+                            medication.done = true;
+
+                            toastr.success('El ciclo de medicación ha sido completado satisfactoriamente');
+
+                        } else {
+
+                            bootbox.alert(res.message);
+
+                        }
+                    }, function(){
+                        bootbox.alert('Ha ocurrido un error al intentar completar el ciclo de medicación');
+                    });
+            }
+        };
+
+        $scope.medicationDetails = function(medication){
+            $modal.open({
+                animation: true,
+                template: angular.element(document.getElementById('medication-modal-template')).html(),
+                controller: 'MedicationDetailsController',
+                size: 'md',
+                scope : $scope,
+                resolve: {
+                    medication: function(){
+                        return medication;
+                    },
+                }
+            });
+        };
+        
+    }])
+    .controller('MedicationDetailsController', ['$scope', 'medication', function($scope, medication){
+        $scope.medication = medication;
     }]);
+
 

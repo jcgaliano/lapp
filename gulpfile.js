@@ -41,7 +41,11 @@ elixir(function(mix) {
         '/bower_components/jquery-validation/dist/additional-methods.js',
         '/bower_components/jquery-validation/src/localization/messages_es.js',
         '/js/ui-bootstrap-tpls-0.14.2.min.js',
-        '/bower_components/a0-angular-storage/dist/angular-storage.min.js'
+        '/bower_components/a0-angular-storage/dist/angular-storage.min.js',
+        '/bower_components/angular-socket-io/socket.min.js',
+        '/bower_components/ng-file-upload-shim/ng-file-upload-shim.js',
+        '/bower_components/ng-file-upload-shim/ng-file-upload.js',
+        '/bower_components/bootbox/bootbox.js'
     ],
         'public/js/vendors.js',
         'resources/assets/'
@@ -76,7 +80,9 @@ elixir(function(mix) {
         '/js/controllers/solicitudappointmentsController.js',
         '/js/controllers/personalDataController.js',
         '/js/services/services.js',
-        '/js/directives/dialogs.js'
+        '/js/directives/dialogs.js',
+        '/js/directives/ekg_directive.js',
+        '/js/socket.io.js'
     ],
         'public/js/app.js',
         'resources/assets/'

@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel header-panel">
+                    <div class="panel-body text-center">Detalles de la cita</div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-sm-offset-6">
+                <div class="panel header-panel">
+                    <div class="panel-body text-center">
+                        <a data-ng-if="!previousAppointmentId" data-ui-sref="index.patient_appointment_details"><i class="fa fa-reply"></i> Volver</a>
+                        <a data-ng-if="previousAppointmentId" data-ui-sref="index.appointment_details({id: previousAppointmentId})"><i class="fa fa-reply"></i> Volver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div  class="panel panel-default">
+            <div class="panel-heading green-heading">
+                Indicaciones
+            </div>
+            <div class="panel-body no-padding">
+                <div style="padding: 10px;">
+                    <p data-ng-bind-html="appointment.indications"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel header-panel">
+                    <div class="panel-body">
+                        Recursos
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div  class="panel" style="padding: 0px;">
+            <div class="panel-body no-padding ">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Tipo de recurso</th>
+                        <th class="text-center">Fecha</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-hide="loadingResources" data-ng-show="resources.length > 0" data-ng-repeat="res in resources">
+                            <td>{{ res.type }}</td>
+                            <td class="text-center">{{ res.date }}</td>
+                            <td class="text-center"><span data-ng-click="showResource(res)" class="list-action-button"><i class="fa fa-search-plus"></i></span></td>
+                        </tr>
+                        <tr data-ng-show="loadingResources">
+                            <td colspan="3" class="text-center"><i class="fa fa-spinner fa-spin"></i> Cargando recursos</td>
+                        </tr>
+                        <tr data-ng-show="resources.length == 0">
+                            <td colspan="3" class="text-center">La cita no tiene recursos asociados</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel header-panel">
+                    <div class="panel-body">
+                        Medicamentos
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div  class="panel" style="padding: 0px;">
+            <div class="panel-body no-padding ">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Dosis</th>
+                        <th>Horario</th>
+                        <th>Notas</th>
+                        <th>Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="med in appointment.medications">
+                        <td>{{ med.medication.medication }}</td>
+                        <td>{{ med.dose }}</td>
+                        <td>{{ med.iterations }}</td>
+                        <td ng-bind-html="med.notes | characters:30:true"></td>
+                        <td>{{ med.created_at | amDateFormat:'DD/MM/YYYY' }}</td>
+                    </tr>
+                    <tr data-ng-show="appointment.medications.length == 0">
+                        <td colspan="6" class="text-center">No ha asignado medicamentos a la cita</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,15 @@
 
 body{
     background-color: #4ec9d4;
+    color: #696969;
 }
+
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}
+
 .container{
     padding-top: 20px;
 }
@@ -32,13 +40,14 @@ i.required{
 
 .panel-heading.green-heading, .panel-heading-mock{
     border: none;
-    background: #36cf82 !important;
-    height: 50px;
+    height: 40px;
     color: white !important;
-    font-size: 24px;
+    font-size: 20px;
     text-transform: none !important;
-    padding: 0px 15px !important;
-    line-height: 50px;
+    line-height: 40px;
+    background: url('/images/logo_small.png') no-repeat 10px center scroll #36cf82 !important;
+    padding: 0px;
+    padding-left: 35px;
 }
 
 .form-profile-picture{
@@ -129,19 +138,50 @@ $header-logo-height: 70px;
 }
 
 .sidebar{
+    .profile-picture-placeholder{
+        margin-bottom: 10px;
+    }
     .gray-text{
         color: #666666;
         display: block;
         font-size: 18px;
     }
     .user-name{
-        font-family: 'RobotoSlab-Regular';
-        font-size: 16px;
-        margin-top: 10px;
+        font-size: 18px;
+        font-weight: normal;
+        margin-bottom: 0px;
     }
     .phone-number{
         margin-top: 10px;
         margin-bottom: 15px;
+    }
+    p{
+        margin-bottom:  5px;
+        font-size: 16px;
+    }
+    .logout-wrapper{
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+    .specialty{
+        color: #666666;
+        font-size: 12px;
+        text-transform: uppercase;
+        margin-bottom: 0px;
+    }
+}
+
+a.logout-btn{
+    border: 1px solid #36cf82;
+    background-color: #36cf82;
+    padding: 7px 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #fff;
+    &:hover{
+        background-color: darken(#36cf82, 10%);
+        text-decoration: none;
     }
 }
 
@@ -248,17 +288,54 @@ table.table{
 
 .span-button{
     cursor: pointer;
+    color: #000;
+    &:hover, &:active, &:focus{
+        color: #696969;
+        text-decoration: none;
+    }
 }
 
-.modal.confirm, .modal.alert, .modal.success{
+.modal{
     .modal-dialog{
         .modal-content{
             .modal-header{
-                font-size: 20px;
+                font-size: 18px;
                 padding: 10px 15px;
+                -webkit-border-top-left-radius: 5px;
+                -moz-border-top-left-radius: 5px;
+                border-top-left-radius: 5px;
+                -webkit-border-top-right-radius: 5px;
+                -moz-border-top-right-radius: 5px;
+                border-top-right-radius: 5px;
+                color: #fff;
+                background: url('/images/logo_small.png') no-repeat 10px center scroll #36cf82;
+                padding-left: 35px;
+            }
+            .modal-footer{
+                padding: 6px 10px;
             }
         }
     }
+}
+
+.profile-picture-wrapper{
+    width: 150px;
+    height: 150px;
+    border: 9px solid #4ec9d4;
+    margin: 0 auto;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    overflow: hidden;
+    img{
+        width: 100%;
+        height: 100%;
+    }
+}
+
+
+.profile-upload-btn{
+    margin-top: 20px;
 }
 
 .list-action-button{
@@ -270,4 +347,172 @@ table.table{
     i{
         font-size: 20px;
     }
+    &.no-large-icon{
+        i{
+            font-size: 14px;
+        }
+    }
+}
+
+.device-reading-panel{
+    img{
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .screen{
+        &.first{
+            margin-top: 15px;
+            margin-bottom: 0px;
+        }
+        &:last-child{
+            margin-top: 0px;
+            font-size: 18px;
+        }
+    }
+}
+
+.green{
+    color: #2ecc71;
+}
+.black{
+    color: #000;
+}
+
+
+.ekg-controls{
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    height: 35px;
+    bottom: 10px;
+    text-align: center;
+    .ekg-arrow{
+        position: relative;
+        display: inline-block;
+        color: #fff;
+    }
+    .arrow-left{
+        margin-right: 10px;
+    }
+    .arrow-right{
+        margin-left:10px;
+    }
+    .ekg-control{
+        background-color: #36cf82;
+        border: none;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        width: 35px;
+        height: 35px;
+        display: inline-block;
+    }
+}
+
+.device-status-info{
+    h3{
+        margin: 0px;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    .status-message{
+        margin-top: 10px;
+        padding: 0px 10px;
+        text-align: center;
+    }
+}
+
+.vertical-left-border{
+    border-left: 1px solid #e8e8e8;
+    padding-top: 10px;
+}
+
+.medications-table{
+    .done{
+        color: #36cf82;
+    }
+}
+
+.sensor-tile{
+    & > div{
+        text-align: center;
+    }
+    img{
+        width: 75%;
+        margin: 0 auto;
+        margin-bottom: 15px;
+    }
+    p{
+        text-align: center;
+    }
+    opacity: 0.4;
+    transition: opacity 0.5s, transform 0.5s;
+    &:hover{
+        cursor: pointer;
+        -webkit-transform: scale(1.05, 1.05);
+        -moz-transform: scale(1.05, 1.05);
+        -ms-transform: scale(1.05, 1.05);
+        -o-transform: scale(1.05, 1.05);
+        transform: scale(1.05, 1.05);
+        opacity: 1;
+    }
+    &.active{
+        -webkit-transform: scale(1.1, 1.05);
+        -moz-transform: scale(1.1, 1.05);
+        -ms-transform: scale(1.1, 1.05);
+        -o-transform: scale(1.1, 1.05);
+        transform: scale(1.1, 1.05);
+        opacity: 1;
+    }
+}
+
+.sensor-table{
+    width: 100%;
+    tbody{
+        tr{
+            td{
+                text-align: center;
+                img{
+                    width: 64px;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
+.link-span{
+    padding-top: 7px;
+    float: left;
+    color: #337ab7;
+    cursor: pointer;
+    &:hover{
+        color: darken(#337ab7, 10%);
+    }
+}
+
+.login-form{
+    h2{
+        margin: 0px;
+        font-size: 20px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        color: #696969;
+    }
+}
+
+.register-panel{
+    border: none !important;
+}
+
+ul.modal-error-list{
+    padding-left: 20px !important;
+}
+
+.delete-doctor-modal-block{
+    margin-bottom: 15px;
 }

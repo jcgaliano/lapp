@@ -1,61 +1,78 @@
 angular
     .module('Platease')
-    .controller('sensorsController', ['$scope','$timeout', 'SensorData', function($scope, $timeout, SensorData){
+    .controller('sensorsController', ['$scope','$timeout', 'SensorData', 'amMoment', 'dialog', function($scope, $timeout, SensorData, amMoment, dialog){
 
-        $scope.sensor_data = {
-            cloudsalud: {
-                tag: 'realtime',
-                success: true,
-                error: false,
-                sensors: [
-                    {
-                        id: 0,
-                        name: 'Temperatura',
-                        value: 37.2,
-                        type_sensor: 1,
-                        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
-                        series: 'Temperatura corporal',
-                        data: [
-                            [35.6, 37, 37.5, 38, 38.3, 0, 0],
-                        ]
-                    },
-                    {
-                        id: 1,
-                        name: 'Oxígeno',
-                        value: 87,
-                        type_sensor: 3,
-                        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
-                        series: 'Concentracion de oxígeno',
-                        data: [
-                            [40, 60, 80, 70, 60, 0, 0],
-                        ]
-                    },
-                    {
-                        id: 2,
-                        name: 'Ritmo cardíaco',
-                        value: 93,
-                        type_sensor: 2,
-                        labels: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio"],
-                        series: 'Ritmo cardíaco',
-                        data: [
-                            [98, 90, 130, 146, 30, 0, 0],
-                        ]
-                    },
+        console.log(amMoment);
 
-                ]
-            }
+        $scope.loadingChart = false;
+
+        $scope.loadingChartMessage = 'Cargando gráfica...';
+
+        $scope.selectSensor = function(sensorName, displayName){
+
+            $scope.sensorName = sensorName;
+
+            $scope.displayName = displayName;
+
+            // $scope.values = [];
+            //
+            // $scope.labels = [];
+
         };
 
-        //SensorData.then(function(data){
-        //
-        //    //var sensors = data.laria.sensors;
-        //    //
-        //    //for(var i in sensors){
-        //    //   console.log(sensors[i]);
-        //    //}
-        //
-        //}, function(){
-        //    alert('Ha ocurrido un error al obtener datos de los sensores');
-        //});
+        $scope.showChart = function(){
+
+            if (!$scope.sensorName){
+                dialog.alert('Aviso', 'Debe seleccionar el parámetro que desea monitorear');
+                return;
+            }
+
+            var start_date = $scope.start_date ? moment($scope.start_date) : null;
+
+            var end_date = $scope.end_date ? moment($scope.end_date) : null;
+
+
+            if (start_date && end_date){
+                //check date precedence
+                if (!end_date.isAfter(start_date) && !end_date.isSame(start_date, 'day')){
+                    dialog.alert('Error', 'La fecha final no puede ser anterior a la fecha inicial');
+                    return;
+                }
+            }
+
+            $scope.loadingChart = true;
+
+            $scope.series = $scope.displayName;
+
+            SensorData.getSensorData($scope.sensorName, $scope.start_date, $scope.end_date)
+                .then(function(data){
+
+                    if (data.values.length == 0){
+                        $scope.values = [];
+                        $scope.labels  = [];
+
+                        dialog.alert('Aviso', 'Lo sentimos no hay datos registrados para el período seleccionado');
+
+                        $scope.loadingChart = false;
+
+                        return;
+                    }
+
+                    $scope.labels = data.labels;
+
+                    var values = [];
+
+                    values.push(data.values);
+
+                    $scope.values = values;
+
+                    $scope.loadingChart = false;
+
+                }, function(){
+                    $scope.loadingChartMessage = 'Ha ocurrido un error al cargar la gráfica';
+                });
+
+        };
+
     }]);
 

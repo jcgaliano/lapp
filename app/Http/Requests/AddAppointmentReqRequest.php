@@ -15,7 +15,7 @@ class AddAppointmentReqRequest extends Request
     {
         $user = \Auth::getUser();
 
-        return $user->user_type == 2;
+        return $user->user_type == 2 || $user->user_type == 1;
     }
 
     /**
@@ -26,7 +26,15 @@ class AddAppointmentReqRequest extends Request
     public function rules()
     {
         return [
-            
+            'date' => 'required',
+            'doctor' => 'required',
+        ];
+    }
+
+    public function messages(){
+        return [
+            'date.required' => 'Debe especificar la fecha para la solicitud de cita',
+            'doctor.required' => 'Debe seleccionar el doctor para la solicitu de cita'
         ];
     }
 }

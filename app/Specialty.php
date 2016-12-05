@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Specialty extends Model
 {
 
-    protected $table = 'laria_doctor_speciality';
+    protected $table = 'doctor_speciality';
 
 }

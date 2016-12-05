@@ -95,12 +95,12 @@
                                    style="font-family: RobotoSlab-Regular;padding-right: 22px">Sexo</label>
 
                             <div class="col-lg-3">
-                                <select name="sex" id="sex" class="form-control" data-ng-model="patient.sex">
+                                <select name="sex" id="sex" class="form-control" data-ng-model="patient.gender">
                                     <option value="">Seleccione</option>
-                                    <option data-ng-selected="patient.sex == 'Femenino'" value="Femenino">
+                                    <option data-ng-selected="patient.gender == 'Femenino'" value="Femenino">
                                         Femenino
                                     </option>
-                                    <option data-ng-selected="patient.sex == 'Masculino'" value="Masculino">
+                                    <option data-ng-selected="patient.gender == 'Masculino'" value="Masculino">
                                         Masculino
                                     </option>
                                 </select>
@@ -126,13 +126,8 @@
                                 Civil</label>
 
                             <div class="col-lg-3">
-                                <select name="estado_civil" id="estado_civil" class="form-control"data-ng-model="patient.estado_civil">
-                                    <option value="">Seleccione</option>
-                                    <option data-ng-selected="patient.estado_civil == 'Soltero'"value="Ninguno">Ninguno</option>
-                                    <option data-ng-selected="patient.estado_civil == 'Soltero'"value="Soltero">Soltero</option>
-                                    <option data-ng-selected="patient.estado_civil == 'Casado'"value="Casado">Casado</option>
-                                    <option data-ng-selected="patient.estado_civil == 'Viudo'"value="Viudo">Viudo</option>
-                                    <option data-ng-selected="patient.estado_civil == 'Union Libre'"value="Union Libre">Uni&oacute;n Libre</option>
+                                <select name="estado_civil" id="estado_civil" class="form-control" data-ng-model="patient.estado_civil">
+                                    <option data-ng-repeat="status in statuses" ng-selected="status.value == patient.estado_civil" value="status.value">{{ status.name }}</option>
                                 </select>
                             </div>
                         </div>

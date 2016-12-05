@@ -2,7 +2,18 @@
     <div class="col-lg-4 col-lg-offset-4">
         <div class="panel panel-default">
             <div class="panel-body">
+                <div class="alert alert-danger" data-ng-if="auth_message">
+                    <p>
+                        {{ auth_message }}
+                    </p>
+                </div>
+                <div class="alert alert-success" data-ng-if="success_message">
+                    <p>
+                        {{ success_message }}
+                    </p>
+                </div>
                 <form method="post" action="" class="login-form">
+                    <h2 class="text-center">Inicio de sesión</h2>
                     <div class="form-group">
                         <label for="email">Correo</label>
                         <input type="email" class="form-control" name="email" id="email" data-ng-model="credentials.email" value="">

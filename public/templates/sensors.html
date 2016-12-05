@@ -1,9 +1,106 @@
-<div data-ng-controller="sensorsController">
-    <div class="panel panel-default" data-ng-repeat="sensor in sensor_data.cloudsalud.sensors" >
-        <div class="panel-heading">{{ sensor.name }}</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel header-panel">
+                    <div class="panel-body text-center">Monitoreo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p>Seleccione el parámetro del cual desea ver la evolución</p>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-2 sensor-tile" data-ng-class="{active: sensorName == 'heart_rate'}" data-ng-click="selectSensor('heart_rate', 'Frecuencia cardíaca')">
+                                <div>
+                                    <img src="/images/ap_heart_beats.png">
+                                </div>
+                                <p class="screen first">Ritmo Cardiaco</p>
+                            </div>
+                            <div class="col-sm-2 sensor-tile" data-ng-class="{active: sensorName == 'temperature'}" data-ng-click="selectSensor('temperature', 'Temperatura')">
+                                <div>
+                                    <img src="/images/ap_temp.png">
+                                </div>
+                                <p class="screen first">Temperatura (&ordm;C)</p>
+                            </div>
+                            <div class="col-sm-2 sensor-tile" data-ng-class="{active: sensorName == 'weight'}" data-ng-click="selectSensor('weight', 'Peso')">
+                                <div>
+                                    <img src="/images/ap_weight.png">
+                                </div>
+                                <p class="screen first">Peso (Kg)</p>
+                            </div>
+                            <div class="col-sm-2 sensor-tile" data-ng-class="{active: sensorName == 'glucose_level'}" data-ng-click="selectSensor('glucose_level', 'Glucosa')">
+                                <div>
+                                    <img src="/images/ap_sugar.png">
+                                </div>
+                                <p class="screen first">Glucosa</p>
+                            </div>
+                            <div class="col-sm-2 sensor-tile" data-ng-class="{active: sensorName == 'height'}" data-ng-click="selectSensor('height', 'Talla')">
+                                <div>
+                                    <img src="/images/ap_size.png">
+                                </div>
+                                <p class="screen first">Talla(m)</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label for="">Fecha y hora de inicio</label>
+                                <div class="row">
+                                    <div class="col-sm-6" style="padding-top: 30px;">
+                                        <ng-bs3-datepicker name="date" ng-required="true" id="date" data-ng-model='start_date' language="es" date-format="YYYY-MM-DD"/>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="">Fecha y hora de conclusión</label>
+                                <div class="row">
+                                    <div class="col-sm-6" style="padding-top: 30px;">
+                                        <ng-bs3-datepicker name="end_date" ng-required="true" id="date" data-ng-model='end_date' language="es" date-format="YYYY-MM-DD"/>
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 text-center">
+                                <hr/>
+                                <button data-ng-click="showChart()" type="button" class="btn btn-primary btn-lg"><i class="fa fa-bar-chart-o"></i> Mostrar gráfica</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-ng-if="values.length > 0 || loadingChart">
+    <div class="panel panel-default">
+        <div class="panel-heading green-heading" data-ng-bind="series"></div>
+        <!--<div class="panel-heading">{{ sensor.name }}</div>-->
         <div class="panel-body with-padding">
-            <canvas id="line" class="chart chart-line" data="sensor.data" labels="sensor.labels"
-                    legend="false" series="sensor.series"></canvas>
+            <canvas data-ng-if="values.length > 0" id="line" class="chart chart-line" data="values" labels="labels"
+                    legend="false" series="series"></canvas>
+            <p class="text-center" data-ng-if="loadingChart" data-ng-bind="loadingChartMessage">
+
+            </p>
         </div>
     </div>
 </div>

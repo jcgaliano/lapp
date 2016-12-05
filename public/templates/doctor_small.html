@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+    <div class="panel-heading green-heading">Perfil reducido de doctor</div>
+    <div class="panel-body">
+        <div class="row" style="margin-top: 30px">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="update_doctor" name="update_doctor">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="well">
+                                <div id="profile_picture" class="profile-picture-wrapper" >
+                                    <img data-ng-src="{{ doctor.profile_picture }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <fieldset>
+                                <legend>Datos del perfil</legend>
+                                <div class="form-group">
+                                    <label for="email" class="col-lg-3 control-label text-right">Correo</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">
+                                            {{ doctor.email }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-lg-3 control-label text-right">Nombre</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">
+                                            {{ doctor.name }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-lg-3 control-label text-right">Apellidos</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">
+                                            {{ doctor.lastname }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label for="spec_1" class="col-sm-3 control-label text-right">Especialidades</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">{{ main_specialty }} <span data-ng-if="second_speciality">, {{ second_speciality }}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label for="professional_license" class="col-sm-3 control-label text-right">Licencia profesional</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">
+                                                            {{ doctor.professional_license }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="dni" class="col-sm-3 control-label text-right">Cédula</label>
+                                            <div class="col-sm-7">
+                                                <p class="form-control-static">
+                                                    {{ doctor.cedula }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <a data-ui-sref="index.super_pending_doctors" class="btn btn-default"><i class="fa fa-mail-reply"></i> Regresar al listado</a>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <button data-ng-click="certifyDoctor(doctor, true)" type="button" class="btn btn-default" style="margin-right: 20px;"><i class="fa fa-check-circle"></i> Certificar doctor</button>
+                            <button data-ng-click="certifyDoctor(doctor, false)" type="button" class="btn btn-danger"><i class="fa fa-ban"></i> Denegar certificación</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

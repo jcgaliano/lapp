@@ -1,6 +1,7 @@
 angular
     .module('Platease')
     .controller('appoiment_userController', ['$scope','$rootScope', 'Appointments', 'Patients', '$stateParams', '$modal', 'Medication_Appointment', 'Medications', '$state', '$timeout', function($scope, $rootScope, Appointments, Patients, $stateParams, $modal, Medication_Appointment, Medications, $state, $timeout){
+
         $scope.updateShow = false;
 
         $scope.showEdit = function(){
@@ -87,7 +88,7 @@ angular
         Medication_Appointment.getAllMedicationsAppointmentByAppointment($stateParams.appointment_id).then(function(medications_appointment){
             $scope.medications_appointment = medications_appointment;
         }, function(){
-            toastr.error("Error al Relizar la Operaci&oacute;n");
+            toastr.error("Error al realizar la Operación");
         });
 
         $scope.doAppointment = function(){

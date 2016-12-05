@@ -23,7 +23,7 @@
             <div class="col-sm-3 col-sm-offset-6">
                 <div class="panel header-panel">
                     <div class="panel-body text-center">
-                        <a class="span-button" data-ui-sref="index.appointments_add"><i class="fa fa-plus"></i> Ver Solicitudes</a>
+                        <a class="span-button" data-ui-sref="index.appointment_requests_add"><i class="fa fa-plus"></i> Solicitar cita</a>
                     </div>
                 </div>
             </div>
@@ -33,69 +33,73 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <div  class="panel" style="padding: 0px;">
-            <div class="panel-body no-padding ">
-                <div ng-hide="insertShow">
-                    <table ng-if="user.user_type == 'patient'" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th>Doctor</th>
-                            <th>Especialidad(es)</th>
-                            <th>Asistencia</th>
-                            <th>Fecha</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr  data-ng-repeat="appoiment in appointments">
-                            <td colspan="4">{{ appoiment }}</td>
-                            <!--<td>{{ appoiment.doctor_name }} {{ appoiment.doctor_lastname }}</td>-->
-                            <!--<td>{{ appoiment.speciality }} <span data-ng-if="appoiment.second_speciality_id != 1"> {{ appoiment.second_speciality }}</span></td>-->
-                            <!--<td class="text-center"  ng-if="appoiment.assisted == 1"><a  href="#"><img style="height: 24px;"  src="/images/check.png"></a></td>-->
-                            <!--<td class="text-center" ng-if="appoiment.assisted == 0"><a href="#"><img style="height: 24px;"  src="/images/no-check.png"></a></td>-->
-                            <!--<td>{{ appoiment.date | amDateFormat:'DD/MM/YYYY HH:MM' }}</td>-->
-                        </tr>
-                        </tbody>
-                    </table>
-                    <table ng-if="user.user_type == 'doctor'" class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th class="text-center">Paciente</th>
-                            <th class="text-center">Asistencia</th>
-                            <th class="text-center">Fecha</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><input style="width: 100%" type="text" name="Search" data-ng-change="termFilter(criterial)" data-ng-model="criterial"></td>
-                            <td class="text-center">
-                                <span class="filter" data-ng-click="setAssisted(null)"><i class="glyphicon glyphicon-asterisk" style="cursor: pointer;color: black;font-size: 24px"></i></span>
-                                <span class="filter" data-ng-click="setAssisted(1)"><img style="height: 24px;"  src="/images/check.png" /></span>
-                                <span class="filter" data-ng-click="setAssisted(0)"><img style="height: 24px"  src="/images/no-check.png"></span>
-                            </td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr  data-ng-repeat="appointment in appointments">
-                            <td>{{ appointment.patient_name }} {{ appointment.patient_lastname }}</td>
-                            <td class="text-center"  ng-if="appointment.assisted == '1'"><a href="#"><img style="height: 24px"  src="/images/check.png"></a></td>
-                            <td class="text-center" ng-if="appointment.assisted == '0'"><a href="#"><img style="height: 24px"  src="/images/no-check.png"></a></td>
-                            <td class="text-center" ng-if="appointment.assisted == null"><i class="glyphicon glyphicon-asterisk" style="cursor: pointer;color: black;font-size: 24px"></i></td>
-                            <td>{{ appointment.date | amDateFormat:'DD/MM/YYYY HH:mm' }}</td>
-                            <td class="text-center">
-                                <a class="list-action-button" title="Realizar la Consulta" data-ui-sref="appointment_patient({'user_id': appointment.patient_id, 'appointment_id': appointment.appointment_id})"><i class="fa fa-check-square-o"></i></a>
-                                <a class="list-action-button" title="Editar Cita" data-ui-sref="index.appointments_edit({id: appointment.appointment_id})"><i class="fa fa-edit"></i></a>
-                                <span class="list-action-button" title="Eliminar Cita" data-ng-click="removeAppointment(appointment, $index)"><i class="fa fa-trash-o"></i></span>
-                            </td>
-                        </tr>
-                        </tbody>
-                        <!--<tr>-->
-                        <!--<td colspan="4" class="text-center">-->
-                        <!--<span>1.1.1.1.1.1.1</span>-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                    </table>
-                </div>
+        <div  class="panel">
+            <div class="panel-body no-padding">
+                <table ng-if="user.user_type == 'patient'" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Doctor</th>
+                        <th class="text-center">Área</th>
+                        <th class="text-center">Asistencia</th>
+                        <th class="text-center">Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-if="appointments.length > 0"  data-ng-repeat="appointment in appointments">
+                        <td>{{ appointment.name }} {{ appointment.lastname }}</td>
+                        <td class="text-center">
+                            <span ng-if="appointment.speciality">{{ appointment.speciality }}</span>
+                            <span ng-if="!appointment.speciality">No definida</span>
+                        </td>
+                        <td class="text-center"  ng-if="appointment.assisted == '1'"><a href="#"><i class="fa fa-check-circle fa-lg green"></i></a></td>
+                        <td class="text-center" ng-if="appointment.assisted == '0'"><a href="#"><i class="fa fa-check-circle fa-lg black"></i></a></td>
+                        <td class="text-center" ng-if="appointment.assisted == null"><i class="fa fa-asterisk fa-lg black"></i></td>
+                        <td class="text-center">{{ appointment.date | amDateFormat:'DD/MM/YYYY HH:MM' }}</td>
+                    </tr>
+                    <tr data-ng-if="appointments.length == 0">
+                        <td colspan="6" class="text-center">
+                            Lo setimos, usted no tiene citas programadas aún. Solicite una cita presionando <a data-ui-sref="index.appointment_requests_add">aquí</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table ng-if="user.user_type == 'doctor'" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Nombre del paciente</th>
+                        <th class="text-center">Asistencia</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><input style="width: 100%" type="text" name="Search" data-ng-change="termFilter(criterial)" data-ng-model="criterial"></td>
+                        <td class="text-center">
+                            <span title="No ha llegado la fecha" class="filter" data-ng-click="setAssisted(null)"><i class="fa fa-asterisk fa-lg"></i></span>
+                            <span title="Asistió" class="filter" data-ng-click="setAssisted(1)"><i class="fa fa-check-circle fa-lg green"></i></span>
+                            <span title="No asistió" class="filter" data-ng-click="setAssisted(0)"><i class="fa fa-check-circle fa-lg black"></i></span>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr data-ng-repeat="appointment in appointments">
+                        <td>{{ appointment.patient_name }} {{ appointment.patient_lastname }}</td>
+                        <td class="text-center"  ng-if="appointment.assisted == '1'"><a href="#"><i class="fa fa-check-circle fa-lg green"></i></a></td>
+                        <td class="text-center" ng-if="appointment.assisted == '0'"><a href="#"><i class="fa fa-check-circle fa-lg black"></i></a></td>
+                        <td class="text-center" ng-if="appointment.assisted == null"><i class="fa fa-asterisk fa-lg black"></i></td>
+                        <td class="text-center">{{ appointment.date | amDateFormat:'DD/MM/YYYY HH:mm' }}</td>
+                        <td class="text-center">
+                            <a class="list-action-button" title="Realizar la Consulta" data-ui-sref="index.appointment_details({id: appointment.appointment_id})"><i class="fa fa-fw fa-check-square-o"></i></a>
+                            <a class="list-action-button" title="Editar Cita" data-ui-sref="index.appointments_edit({id: appointment.appointment_id})"><i class="fa fa-edit fa-fw"></i></a>
+                            <span class="list-action-button" title="Eliminar Cita" data-ng-click="removeAppointment(appointment, $index)"><i class="fa fa-trash-o fa-fw"></i></span>
+                        </td>
+                    </tr>
+                    <tr data-ng-hide="appointments.length > 0">
+                        <td colspan="4" class="text-center">No tiene citas programadas por el momento o ninguna cumple con el criterio de búsqueda</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

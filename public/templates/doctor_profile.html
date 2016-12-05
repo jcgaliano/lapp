@@ -1,0 +1,172 @@
+<div class="panel panel-default">
+    <div class="panel-heading green-heading">Perfil de doctor</div>
+    <div class="panel-body">
+        <div class="row" style="margin-top: 30px">
+            <div class="col-xs-12">
+                <form class="form-horizontal" id="update_doctor" name="update_doctor">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="well">
+                                <div id="profile_picture" class="profile-picture-wrapper" >
+                                    <img data-ng-src="{{ doctor.profile_picture }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9">
+                            <fieldset>
+                                <legend>Datos del perfil</legend>
+                                <div class="form-group">
+                                    <label for="email" class="col-lg-3 control-label text-right">Correo</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">
+                                            {{ doctor.email }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-lg-3 control-label text-right">Nombre</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">
+                                            {{ doctor.name }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastname" class="col-lg-3 control-label text-right">Apellidos</label>
+                                    <div class="col-lg-9">
+                                        <p class="form-control-static">
+                                            {{ doctor.lastname }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label for="spec_1" class="col-sm-3 control-label text-right">Especialidades</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">{{ main_specialty }} <span data-ng-if="second_speciality">, {{ second_speciality }}</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <label for="professional_license" class="col-sm-3 control-label text-right">Licencia profesional</label>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <p class="form-control-static">
+                                                            {{ doctor.professional_license }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="dni" class="col-sm-5 control-label text-right">Cédula</label>
+                                                            <div class="col-sm-7">
+                                                                <p class="form-control-static">
+                                                                    {{ doctor.cedula }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <fieldset>
+                                <legend>Otros datos</legend>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="row form-group">
+                                            <label for="email" class="col-lg-6 control-label">Tel&eacute;fono</label>
+                                            <div class="col-lg-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.cell }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label for="sex" class="col-sm-6 control-label">Género</label>
+                                            <div class="col-sm-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.gender }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label for="city" class="col-sm-6 control-label">Ciudad</label>
+                                            <div class="col-lg-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.city }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label for="street" class="col-sm-6 control-label">Calle</label>
+                                            <div class="col-sm-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.street }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="row form-group">
+                                            <label class="col-sm-6 control-label">Nacimiento</label>
+                                            <div class="col-sm-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.birthday }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label for="colony" class="col-sm-6 control-label">Colonia</label>
+                                            <div class="col-sm-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.colony }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label for="number" class="col-sm-6 control-label">N&uacute;mero</label>
+                                            <div class="col-sm-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.number }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row form-group">
+                                            <label for="postal_code" class="col-sm-6 control-label">C&oacute;digo Postal</label>
+                                            <div class="col-sm-6">
+                                                <p class="form-control-static">
+                                                    {{ doctor.postal_code }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12 text-right">
+                                        <hr>
+                                        <a data-ui-sref="index.super_doctors" class="btn btn-default"><i class="fa fa-mail-reply"></i> Regresar al listado</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

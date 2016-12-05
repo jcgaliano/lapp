@@ -1,29 +1,28 @@
-<div class="col-lg-12 panel" style="padding: 0">
-    <div class="col-lg-12 panel" style="padding: 0;margin-bottom: 0px;">
-        <div class="modal-header" style="padding: 0px;">
-            <div class="modal-title" style="background: #36cf82; height: 50px;font-family: RobotoSlab-Regular;padding-top:10px !important; padding-left:5px;color: white; font-size: 20px;-webkit-border-radius: 7px 7px 0px 0px;-moz-border-radius: 7px 7px 0px 0px;border-radius: 7px 7px 0px 0px;border: 1px solid transparent;">
-            Confirmar Eliminacion de Doctor
+<div class="modal-header">
+    Confirmar Eliminacion de Doctor
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-4 text-center">
+            <div class="profile-picture-wrapper">
+                <img class="modal-profile-picture" data-ng-src="{{ doctor.profile_picture ? '/uploads/users_pictures/' + doctor.profile_picture : '/images/default-profile.png' }}">
             </div>
         </div>
-        <div class="modal-body" style="height: 150px">
-            <div class="col-lg-12">
-
+        <div class="col-xs-8">
+            <div class="row">
+                <div class="delete-doctor-modal-block col-lg-9"><span>Nombre:</span>  {{ doctor.name }} {{ doctor.lastname }}</div>
+                <div class="delete-doctor-modal-block col-lg-9"><span>C&eacute;dula: </span> {{ doctor.cedula }}</div>
+                <div class="delete-doctor-modal-block col-lg-9"><span>L. Profecional:</span> {{ doctor.professional_license}}</div>
+                <div class="delete-doctor-modal-block col-lg-9"><span>Especialidad:</span> {{ doctor.speciality}}</div>
             </div>
-            <div class="col-lg-12">
-                <div class=" col-lg-2" style="padding: 0px;margin-bottom: 0px;">
-                    <img style="height: 91px; width: 91px;-moz-border-radius: 10px;-webkit-border-radius: 10px;border-radius: 10px;" data-ng-src="{{ doctor.profile_picture }}">
-                </div>
-                <div class="col-lg-9" style="margin-bottom: 10px"><span style="font-weight: lighter">Nombre:</span>  {{ doctor.name }} {{ doctor.lastname }}</div>
-                <div class="col-lg-9" style="margin-bottom: 10px"><span style="font-weight: lighter">C&eacute;dula: </span> {{ doctor.cedula }}</div>
-                <div class="col-lg-9" style="margin-bottom: 10px"><span style="font-weight: lighter">L. Profecional:</span> {{ doctor.professional_license}}</div>
-                <div class="col-lg-9" style="margin-bottom: 10px"><span style="font-weight: lighter">Especialidad:</span> {{ doctor.speciality}}</div>
-            </div>
-
-        </div>
-        <div class="modal-footer">
-            <button style="margin-right:20px;background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-primary" type="button" ng-click="$close(true)">OK</button>
-            <button style="margin-right:20px;background: #36cf82;font-family: RobotoSlab-Regular;color: white" class="btn btn-warning" type="button" ng-click="$dismiss(false)">Cancel</button>
         </div>
     </div>
-
+</div>
+<div class="modal-footer text-center">
+    <div class="row">
+        <div class="col-xs-12 text-right">
+            <button class="btn btn-default" data-ng-click="$close(true)">Sí</button>
+            <button class="btn btn-danger" data-ng-click="$close(false)">No</button>
+        </div>
+    </div>
 </div>

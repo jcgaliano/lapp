@@ -25,6 +25,83 @@ angular.module('Platease')
                         d.reject(status);
                     });
                 return d.promise;
+            },
+            setData: function(profile_data){
+                data = profile_data;
+            },
+            clearData: function(){
+
+                console.log('clearing data');
+
+                data = null;
+            },
+            changePassword: function(password, password_confirm){
+                var d = $q.defer();
+
+                $http.post('/api/change-password', {password: password, password_confirm: password_confirm})
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+            },
+            logout: function(){
+
+                var d = $q.defer();
+
+                $http.get('/api/logout')
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+
+            },
+            recoverPassword: function(email){
+
+                var d = $q.defer();
+
+                $http.post('/api/recover-password', {email: email})
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+
+            },
+            registerUser: function(userData){
+
+                var d = $q.defer();
+
+                $http.post('/register-doctor', {
+                    email: userData.email,
+                    password: userData.email,
+                    password_confirm: userData.email,
+                    name: userData.name,
+                    lastname: userData.lastname,
+                    spec_1: userData.speciality,
+                    spec_2: userData.second_speciality,
+                    pl: userData.pl,
+                    dni: userData.dni,
+                })
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(data,status,headers, config){
+                        d.reject(data);
+                    });
+
+                return d.promise;
+
             }
         };
     }]);
@@ -32,32 +109,17 @@ angular.module('Platease')
 angular.module('Platease')
     .factory('Supervisor', ['$http', '$timeout', '$q', function($http, $timeout, $q){
       return {
-          getASupervisorById : function()
+          updateProfile : function(supervisor)
           {
               var d = $q.defer();
-              $http.get('/index.php/getasupervisor')
+
+              $http.post('/api/supervisor-profile', {data: supervisor})
                   .success(function(res){
                       d.resolve(res);
                   })
-                  .error(function(status){
-                      d.reject(status);
+                  .error(function(){
+                      d.reject(arguments);
                   });
-
-              return d.promise;
-          },
-          updateSupervisor : function(supervisor, imagen)
-          {
-              var d = $q.defer();
-              $http({method:'put', data:{
-                  'supervisor' : supervisor,
-                  'imagen_name' : imagen.name,
-                  'imagen_type' : imagen.type
-              },
-                  url: "/index.php/updatesupervisor"}).success(function (doctor) {
-                  d.resolve(doctor);
-              }).error(function(){
-                  d.reject('error');
-              });
 
               return d.promise;
           }
@@ -67,12 +129,12 @@ angular.module('Platease')
 angular.module('Platease')
     .factory('SensorData', ['$http', '$timeout', '$q', function($http, $timeout, $q){
         return {
-            getSensorData : function()
+            getSensorData : function(sensorName, startDate, endDate)
             {
                 var d = $q.defer();
-                $http.get('/index.php/getsensordata')
+                $http.post('/api/sensors-by-date', {sensor_name: sensorName, start_date: startDate, end_date: endDate})
                     .success(function(res){
-                        d.resolve(res);
+                        d.resolve(res.data);
                     })
                     .error(function(status){
                         d.reject(status);
@@ -90,12 +152,39 @@ angular.module('Platease')
            getAllMedications : function()
            {
                var d = $q.defer();
-               $http.get('/index.php/medications')
+
+               $http.get('/api/medications')
                    .success(function(res){
                        d.resolve(res);
                    })
                    .error(function(status){
                        d.reject(status);
+                   });
+
+               return d.promise;
+           },
+           getCurrentForUser: function(){
+               var d = $q.defer();
+
+               $http.get('/api/user-medications')
+                   .success(function(res){
+                       d.resolve(res.data);
+                   })
+                   .error(function(status){
+                       d.reject(status);
+                   });
+
+               return d.promise;
+           },
+           completeCycle: function(medicationId){
+               var d = $q.defer();
+
+               $http.post('/api/complete-medication', {id: medicationId})
+                   .success(function(res){
+                       d.resolve(res);
+                   })
+                   .error(function(){
+                       d.reject(arguments);
                    });
 
                return d.promise;
@@ -138,7 +227,20 @@ angular.module('Platease')
             deleteDoctor : function(doctor_id)
             {
                 var d = $q.defer();
-                $http.delete('/index.php/deletedoctor/'+doctor_id)
+                $http.post('/api/doctor-delete', {id: doctor_id})
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(status){
+                        d.reject(status);
+                    });
+
+                return d.promise;
+            },
+            deletePendingDoctor : function(doctor_id)
+            {
+                var d = $q.defer();
+                $http.post('/api/pending-doctor-delete', {id: doctor_id})
                     .success(function(res){
                         d.resolve(res);
                     })
@@ -187,6 +289,47 @@ angular.module('Platease')
 
                 return d.promise;
             },
+            getAllDoctorsExtended : function()
+            {
+                var d = $q.defer();
+                $http.get('/api/doctors/extended')
+                    .success(function(res){
+                        d.resolve(res.data);
+                    })
+                    .error(function(status){
+                        d.reject(status);
+                    });
+
+                return d.promise;
+            },
+            getAllPendingDoctors: function()
+            {
+                var d = $q.defer();
+                $http.get('/api/doctors/pending')
+                    .success(function(res){
+                        d.resolve(res.data);
+                    })
+                    .error(function(status){
+                        d.reject(status);
+                    });
+
+                return d.promise;
+            },
+            getDoctorProfile: function(id){
+
+                var d = $q.defer();
+
+                $http.get('/api/doctor/'+id)
+                    .success(function(res){
+                        d.resolve(res.data);
+                    })
+                    .error(function(status){
+                        d.reject(status);
+                    });
+
+                return d.promise;
+
+            },
             getAllDoctorsUnapproved : function()
             {
                 var d = $q.defer();
@@ -200,33 +343,65 @@ angular.module('Platease')
 
                 return d.promise;
             },
-            updateDoctor : function(doctor, imagen)
+            updateDoctor : function(doctor)
             {
                 var d = $q.defer();
-                $http({method:'put', data:{
-                    'doctor' : doctor,
-                    'imagen_name' : imagen.name,
-                    'imagen_type' : imagen.type
-                },
-                    url: "/index.php/updatedoctor"}).success(function (doctor) {
-                    d.resolve(doctor);
-                }).error(function(){
-                    d.reject('error');
-                });
+
+                $http.post('/api/doctor/update', {doctor_data: doctor})
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
 
                 return d.promise;
             },
-            certifyDoctor : function(doctor_id)
+            certify: function(doctor_id, status)
             {
                 var d = $q.defer();
-                $http({method:'put', data:{
-                    'doctor_id' : doctor_id
-                },
-                    url: "/index.php/certifydoctor"}).success(function (doctor) {
-                    d.resolve(doctor);
-                }).error(function(){
-                    d.reject('error');
-                });
+
+                $http.post('/api/certify', {id: doctor_id, status: status})
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+            },
+            getDoctorSpecialties: function(){
+                var d = $q.defer();
+
+                $http.get('/api/doctor/specialties')
+                    .success(function(res){
+                        if (res.status == 'success'){
+                            d.resolve(res.data);
+                        } else {
+                            d.reject(res);
+                        }
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+            },
+            getSpecialtiesById: function(doctor_id){
+                var d = $q.defer();
+
+                $http.post('/api/doctor/specialties', { doctor_id: doctor_id })
+                    .success(function(res){
+                        if (res.status == 'success'){
+                            d.resolve(res);
+                        } else {
+                            d.reject(res);
+                        }
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
 
                 return d.promise;
             }
@@ -235,14 +410,14 @@ angular.module('Platease')
     }]);
 
 angular.module('Platease')
-    .factory('Doctor_Especiality', ['$http', '$timeout', '$q', function($http, $timeout, $q){
+    .factory('Specialty', ['$http', '$timeout', '$q', function($http, $timeout, $q){
         return {
-            getAllDoctorEspecialities : function()
+            getAll: function()
             {
                 var d = $q.defer();
-                $http.get('/index.php/getalldoctorespecialities')
+                $http.get('/api/specialties')
                     .success(function(res){
-                        d.resolve(res);
+                        d.resolve(res.specs);
                     })
                     .error(function(status){
                         d.reject(status);
@@ -402,6 +577,23 @@ angular.module('Platease')
 
                     return d.promise;
                 },
+                getDoneAppoiments : function()
+                {
+                    var d = $q.defer();
+                    $http.get('/api/appointments-done')
+                        .success(function(res){
+                            if (res.status == 'success'){
+                                d.resolve(res.appointments);
+                            } else {
+                                d.reject(res);
+                            }
+                        })
+                        .error(function(status){
+                            d.reject(status);
+                        });
+
+                    return d.promise;
+                },
                 getPendingRequests: function()
                 {
                     var d = $q.defer();
@@ -435,10 +627,27 @@ angular.module('Platease')
 
                     return d.promise;
                 },
-                upsertAppointment: function(appointment_id, date, patient_id){
+                upsertAppointment: function(appointment_id, date, patient_id, area_id){
                     var d = $q.defer();
 
-                    $http.post('/api/appointment', {date: date, patient: patient_id, id: appointment_id})
+                    $http.post('/api/appointment', {date: date, patient: patient_id, id: appointment_id, area_id: area_id})
+                        .success(function(res){
+                            if (res.status == 'success'){
+                                d.resolve(res);
+                            } else {
+                                d.reject(res);
+                            }
+                        })
+                        .error(function(status){
+                            d.reject(status);
+                        });
+
+                    return d.promise;
+                },
+                upsertAppointmentRequest: function(appointment_id, date, doctor_id, area_id){
+                    var d = $q.defer();
+
+                    $http.post('/api/appointment-request', {date: date, doctor: doctor_id, id: appointment_id, area_id: area_id})
                         .success(function(res){
                             if (res.status == 'success'){
                                 d.resolve(res);
@@ -474,7 +683,7 @@ angular.module('Platease')
                 {
                     var d = $q.defer();
 
-                    $http.get('/api/appointment/'+appointment_id)
+                    $http.get('/api/appointment/' + appointment_id)
                         .success(function(res){
                             if (res.status == 'success'){
                                 d.resolve(res.appointment);
@@ -520,18 +729,118 @@ angular.module('Platease')
 
                     return d.promise;
                 },
-                doAppointment: function(appointment){
+                getAppointmentDetails: function(id){
+
                     var d = $q.defer();
-                    $http({ method:'put', data:{
-                        'appointment_id': appointment.appointment_id,
-                        'indications': appointment.indications
-                    },
-                        url: "/index.php/doappointment"}).success(function (appointment) {
-                        d.resolve(appointment);
-                    }).error(function(){
-                        d.reject('error');
-                    });
+
+                    $http.get('/api/appointment-details/' + id)
+                        .success(function(res){
+                            if (res.status == 'success'){
+                                d.resolve(res.data);
+                            } else {
+                                d.reject(res);
+                            }
+                        })
+                        .error(function(){
+                            d.reject(arguments);
+                        });
+
                     return d.promise;
+                },
+                linkMedicationToAppointment: function(action, appointment_id, medication){
+                    var d = $q.defer();
+
+                    $http.post('/api/appointment-medication', {
+                        action: action,
+                        appointment_id: appointment_id,
+                        medication_id: medication.medication_id,
+                        medication_dose: medication.dose,
+                        medication_iterations: medication.iterations,
+                        medication_notes: medication.notes
+                    }).success(function(res){
+                        d.resolve(res);
+                    }).error(function(){
+                        d.reject()
+                    });
+
+                    return d.promise;
+                },
+                removeMedication: function(medication_id, appointment_id){
+                    var d = $q.defer();
+
+                    $http.post('/api/appointment-medication/remove', {
+                        medication_id: medication_id,
+                        appointment_id: appointment_id
+                    }).success(function(res){
+                        d.resolve(res);
+                    }).error(function(){
+                        d.reject(arguments);
+                    });
+
+                    return d.promise;
+                },
+                saveIndications: function(appointment_id, indications, readings){
+                    var d = $q.defer();
+
+                    $http.post('/api/appointment-details', {
+                        appointment_id: appointment_id,
+                        indications: indications,
+                        readings: readings
+                    }).success(function(res){
+                        d.resolve(res);
+                    }).error(function(){
+                        d.reject(arguments);
+                    });
+
+                    return d.promise;
+                },
+                saveEkgReadings: function(appointmentId, ekgData){
+                    var d = $q.defer();
+
+                    $http.post('/api/appointment/save/ekg', {
+                        appointment_id: appointmentId,
+                        ekg_data: ekgData
+                    }).success(function(res){
+                        d.resolve(res);
+                    }).error(function(){
+                        d.reject(arguments);
+                    });
+
+                    return d.promise;
+                },
+                getPrevious: function(appointment_id){
+
+                    var d = $q.defer();
+
+                    $http.post('/api/appointment/previous', {
+                        appointment_id: appointment_id
+                    })
+                        .success(function(res){
+                            d.resolve(res);
+                        })
+                        .error(function(){
+                            d.reject(arguments);
+                        });
+
+                    return d.promise;
+
+                },
+                getResources: function(appointmentId){
+
+                    var d = $q.defer();
+
+                    $http.post('/api/appointment/resources', {
+                            appointment_id: appointmentId
+                        })
+                        .success(function(res){
+                            d.resolve(res.data);
+                        })
+                        .error(function(){
+                            d.reject(arguments);
+                        });
+
+                    return d.promise;
+
                 }
             };
     }]);
@@ -539,21 +848,107 @@ angular.module('Platease')
 angular.module('Platease')
     .factory('Patients', ['$http', '$timeout', '$q', function($http, $timeout, $q){
         return{
-                getAllPatients :  function(){
-                    var d = $q.defer();
-                    $http.get('/api/patients').success(function (patients) {
-                        if (patients.status == 'success'){
-                            d.resolve(patients.data);
-                        } else {
-                            dlreject(patients);
-                        }
 
-                    }).error(function(){
-                        d.reject('error');
+            getById: function(id){
+                var d = $q.defer();
+
+                $http.get('/api/patient/'+ id)
+                    .success(function(res){
+                        if (res.status == 'success'){
+                            d.resolve(res.patient);
+                        } else {
+                            d.reject(res);
+                        }
+                    })
+                    .error(function(){
+                        d.reject(arguments);
                     });
-                    return d.promise;
-                },
-                searchPatient: function(criterial){
+
+                return d.promise;
+            },
+            movePatient: function(patient_id){
+                var d = $q.defer();
+
+                $http.post('/api/patient/move', {patient_id: patient_id})
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+            },
+            upsertPatient: function(patient){
+
+                var d = $q.defer();
+
+                var url = null;
+
+                if (patient.id !== undefined && patient.id){
+                    url = '/api/patient/' + patient.id;
+                } else {
+                    url = '/api/patient';
+                }
+
+                $http.post(url, {patient: patient})
+                    .success(function(res){
+                        d.resolve(res);
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+            },
+            getPatientsByUser: function(criteria){
+                var d = $q.defer();
+
+                $http.post('/api/patients', {term: criteria})
+                    .success(function(res){
+                        if (res.status == 'success'){
+                            d.resolve(res.data);
+                        } else {
+                            d.reject(res);
+                        }
+                    })
+                    .error(function(){
+                        d.reject(arguments);
+                    });
+
+                return d.promise;
+            },
+            getAllPatients :  function(){
+                var d = $q.defer();
+                $http.post('/api/patients').success(function (patients) {
+                    if (patients.status == 'success'){
+                        d.resolve(patients.data);
+                    } else {
+                        d.reject(patients);
+                    }
+
+                }).error(function(){
+                    d.reject('error');
+                    // ED DMS SSP CABAIGUAN 110194 WAN 201.220.202.144/30 LAN 10.16.10.216/29
+                });
+                return d.promise;
+            },
+            getLoggedPatient: function(){
+                var d = $q.defer();
+
+                $http.get('/api/logged-patient').success(function(res){
+                    if (res.status == 'success'){
+                        d.resolve(res.data);
+                    } else {
+                        d.reject(res);
+                    }
+                }).error(function(){
+                    d.reject(arguments);
+                });
+
+                return d.promise;
+            },
+            searchPatient: function(criterial){
                 var d = $q.defer();
                 $http({method:'post', data:{
                     'criterial': criterial },
@@ -563,7 +958,7 @@ angular.module('Platease')
                     d.reject('error');
                 });
                 return d.promise;
-                },
+            },
             selectSinglePatientById: function(id){
                 var d = $q.defer();
                 $http.get('/index.php/getpatientbyid/'+id).success(function (patient) {
@@ -583,13 +978,17 @@ angular.module('Platease')
                 return d.promise;
             },
             deletePatient: function(patient_id){
+
                 var d = $q.defer();
-                $http.delete('/index.php/deletepatient/'+patient_id).success(function (patient) {
-                    d.resolve(patient);
-                }).error(function(){
-                    d.reject('error');
-                });
-                return d.promise;
+
+                $http.post('/api/delete-patient', {id: patient_id})
+                    .success(function (res) {
+                        d.resolve(res);
+                    }).error(function(){
+                        d.reject('error');
+                    });
+                    return d.promise;
+
             },
             updatePatient: function(patient_id, patient, imagen){
                 var d = $q.defer();
@@ -664,4 +1063,31 @@ angular.module('Platease')
             }
 
             };
+    }]);
+
+angular.module('Platease')
+    .factory('SocketFactory', ['socketFactory', function(socketFactory){
+
+        var socket = null;
+
+        var factory = {
+            init: function(){
+
+                if (socket == null){
+                    socket = io.connect('http://localhost:8888', { path: '/' });
+                }
+
+                var mysocket =  socketFactory({
+                    ioSocket: socket,
+                    prefix: '',
+                });
+
+                mysocket.forward('error');
+
+                return mysocket;
+            },
+        };
+
+        return factory;
+
     }]);

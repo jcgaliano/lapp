@@ -1,64 +1,41 @@
 angular
     .module('Platease')
-    .controller('update_DoctorController', ['$auth', '$scope', '$http', 'Patients', '$q', '$modal', '$timeout', 'user', function ($auth, $scope, $http, Patients, $q, $modal, $timeout, user) {
+    .controller('update_DoctorController', ['$auth', '$scope', 'user', 'Upload', 'UserData', 'specialties', 'Doctor', '$timeout', function ($auth, $scope, user, Upload, UserData, specialties, Doctor, $timeout) {
 
-        $scope.doctor = user;
+        $scope.doctor = angular.copy(user);
+        $scope.specialties = specialties;
 
-        var picture = null;
-        $scope.insertShow = false;
-        var archivos = document.getElementById('picture');
-        archivos.addEventListener('change', upload, false);
+        $scope.upload = function (file) {
 
+            if (file){
+                $scope.uploading = true;
 
-        function upload(e) {
-            var archivos = e.target.files;
-            var archivo = archivos[0];
-
-
-            var datos = new FormData();
-            datos.append('archivo', archivo);
-
-            var solicitud = new XMLHttpRequest();
-            var xmlupload = solicitud.upload;
-
-            xmlupload.addEventListener('loadstart', begin, false);
-
-            if (archivo.type == 'image/png' || archivo.type == 'image/jpeg') {
-                if (archivo.size <= 2048000) {
-                    xmlupload.addEventListener('load', finish, false);
-                    solicitud.open("POST", '/api/profile-picture', true);
-                    solicitud.setRequestHeader('Authorization', 'Bearer ' + $auth.getToken());
-                    solicitud.send(datos);
-                } else {
-                    toastr.error("Imágenes de Menos de 2 MB");
-                }
-            } else {
-                toastr.error("Solo Imágenes PNG o JPG");
+                Upload.upload({
+                    url: '/api/profile-picture',
+                    data: {
+                        file: file
+                    }
+                }).then(
+                    function(res){
+                        $scope.uploading = false;
+                        if (res.data.status == 'success'){
+                            $scope.doctor.profile_picture = res.data.file;
+                            UserData.setData(angular.copy($scope.doctor));
+                            $scope.$emit('profile_updated', {});
+                        } else {
+                            alert('Ha ocurrido un error al subir la imagen');
+                        }
+                    },
+                    function(reason){
+                        $scope.uploading = false;
+                    }
+                );
             }
-        }
-
-        function begin() {
-            $timeout(function () {
-                $scope.$apply(function () {
-                    $scope.doctor.profile_picture = '/images/loading.gif';
-                });
-            }, 0);
-        }
-
-        function finish() {
-            console.log(arguments);
-            toastr.success("Se Vinculó Imagen al Usuario");
-            $scope.imagen = picture;
-            $timeout(function () {
-                $scope.$apply(function () {
-                    $scope.doctor.profile_picture = '/uploads/users_pictures/' + picture.name;
-                });
-            }, 0);
-        }
+        };
 
         $scope.updateDoctor = function(doctor){
 
-            $("#upadate_doctor").
+            $("#update_doctor").
                 validate({
                     rules: {
                         email: {
@@ -75,17 +52,14 @@ angular
                             required : true
                         },
                         professional_license: {
+                            required: true,
+                            number: true,
+                        },
+                        dni: {
                             required: true
                         },
                         cedula: {
                             required: true
-                        },
-                        password:{
-                            minlength: 5
-                        },
-                        repassword:{
-                            minlength: 5,
-                            equalTo : password
                         },
                         cell: {
                             required: true,
@@ -119,22 +93,19 @@ angular
                         }
                     }
                 });
-            if ($('#upadate_doctor').valid()){
+            if ($('#update_doctor').valid()){
 
-                var imagen_profile;
-                if($scope.imagen == null){
-                    imagen_profile = {
-                        'name' : null,
-                        'type' : null
-                    };
-                }else{
-                    imagen_profile = $scope.imagen;
-                }
+                Doctor.updateDoctor($scope.doctor).then(function(res){
+                    if (res.status == 'success'){
+                        UserData.setData(angular.copy($scope.doctor));
+                        $scope.$emit('profile_updated', {});
+                        toastr.success('El perfil ha sido actualizado satisfactoriamente');
+                    } else {
+                        toastr.error('Ha ocurrido un error al actualizar el perfil');
+                    }
 
-                Doctor.updateDoctor(doctor, imagen_profile).then(function(doctor){
-                    window.location = "/index.php";
                 }, function(){
-
+                    toastr.error('Ha ocurrido un error al actualizar el perfil');
                 });
 
             }

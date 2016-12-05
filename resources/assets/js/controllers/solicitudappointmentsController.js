@@ -198,7 +198,7 @@ angular
 
 
 }])
-    .controller('NewAppointmentRequestController', ['$scope', 'doctors', 'Appointments', '$state', function($scope, doctors, Appointments, $state){
+    .controller('NewAppointmentRequestController', ['$scope', 'doctors', 'Appointments', '$state', 'Doctor', 'dialog', function($scope, doctors, Appointments, $state, Doctor, dialog){
 
         $scope.doctors = doctors;
 
@@ -230,16 +230,16 @@ angular
         $scope.handleInsert =function(){
 
                 $("#appointment_form").
-                validate({
+                    validate({
                         rules: {
-                                doctor: {
-                                        required: true
-                                },
-                                date: {
-                                        required: true
-                                }
+                            doctor: {
+                                required: true
+                            },
+                            date: {
+                                required: true
+                            }
                         }
-                });
+                    });
                 if ($('#appointment_form').valid()){
                         $scope.upsertAppointmentRequest();
                 }
@@ -249,12 +249,28 @@ angular
 
                 $scope.datetime = $scope.date + " " + $scope.time.getHours() + ":" + $scope.time.getMinutes();
 
-                Appointments.upsertAppointmentRequest(undefined !== appointment && appointment ? appointment.id : null, $scope.datetime, $scope.appointment.patient_id)
+                Appointments.upsertAppointmentRequest(undefined !== $scope.appointment && $scope.appointment ? $scope.appointment.id : null, $scope.datetime, $scope.appointment.doctor_id, $scope.appointment.area_id)
                     .then(function(res){
                             toastr.success(res.message);
-                            $state.go('index.appointments');
+                            $state.go('index.appointment_requests');
                     }, function(res){
                             toastr.error(res.message);
                     });
+        };
+
+        $scope.selectDoctor = function(){
+            $scope.loading_doctor_specs = true;
+            Doctor.getSpecialtiesById($scope.appointment.doctor_id)
+                .then(function(res){
+                    $scope.loading_doctor_specs = false;
+                    if (res.data.length > 0){
+                        $scope.specialties = res.data;
+                    } else {
+                        dialog.alert('Aviso', 'El doctor no ha especificado sus especialidades aún. La cita será creada pero sin área específica.');
+                    }
+                }, function(){
+                    $scope.loading_doctor_specs = false;
+                    dialog.alert('Aviso', 'Ha ocurrido un error al obtener las especialidades del doctor.');
+                });
         };
 }]);

@@ -11,7 +11,7 @@ class SpecsController extends Controller
 {
     public function allAction(){
 
-        $specs = Specialty::all();
+        $specs = Specialty::all()->toArray();
 
         return response()->json(['status' => 'success', 'specs' => $specs]);
 

@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel header-panel">
+                    <div class="panel-body text-center">Doctores</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div  class="panel">
+            <div class="panel-body no-padding">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Doctor</th>
+                            <th>Especialidad</th>
+                            <th>L. Profesional</th>
+                            <th>Cédula</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-if="doctors.length > 0"  data-ng-repeat="doctor in doctors">
+                            <td>{{ doctor.name }} {{ doctor.lastname }}</td>
+                            <td>{{ doctor.main_speciality}} <span data-ng-if="doctor.second_speciality">, {{ doctor.second_speciality }}</span> </td>
+                            <td>{{ doctor.professional_license }}</td>
+                            <td>{{ doctor.cedula }}</td>
+                            <td class="text-center">
+                                <a data-ui-sref="index.super_doctor_profile({id: doctor.id})" class="list-action-button" data-ng-click="doctorProfile(doctor.id)" title="Ver Doctor"><i class="fa fa-eye fa-fw"></i></a>
+                                <span class="list-action-button" data-ng-click="removeDoctor(doctor, $index)" title="Ver Doctor"><i class="fa fa-trash-o fa-fw"></i></span>
+                            </td>
+                        </tr>
+                    <tr data-ng-if="doctors.length == 0">
+                        <td colspan="6" class="text-center">
+                            Lo sentimos, no hay doctores registrados aún
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

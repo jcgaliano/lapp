@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Supervisor extends Model
 {
 
-    protected $table = 'laria_supervisor';
+    protected $table = 'supervisor';
 
     public $timestamps = null;
 

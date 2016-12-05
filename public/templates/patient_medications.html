@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel header-panel">
+                    <div class="panel-body text-center">Medicamentos</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div  class="panel">
+            <div class="panel-body no-padding">
+                <table class="table table-striped medications-table">
+                    <thead>
+                        <tr>
+                            <th>Medicamento</th>
+                            <th class="text-center">Dosis</th>
+                            <th class="text-center">Iteraciones</th>
+                            <th class="text-center">Fecha</th>
+                            <th class="text-center">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-show="medications.length > 0" data-ng-repeat="medication in medications">
+                            <td>{{ medication.medication }}</td>
+                            <td class="text-center">{{ medication.dose }}</td>
+                            <td class="text-center">{{ medication.iterations }}</td>
+                            <td class="text-center">{{ medication.created_at | amDateFormat:'DD/MM/YYYY'}}</td>
+                            <td class="text-center">
+                                <span class="list-action-button" data-ng-click="medicationDetails(medication)" title="Detalles">
+                                    <i class="fa fa-search-plus" ></i>
+                                </span>
+                                <span class="list-action-button" data-ng-click="medicationDone(medication)" title="Terminar ciclo">
+                                    <i class="fa fa-check-circle-o" data-ng-class="{done: medication.done}" ></i>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr data-ng-show="!medications || medications.length == 0">
+                            <td colspan="6" class="text-center">
+                                Usted no tiene medicamentos asignados aún
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="medication-modal-template" style="display: none">
+    <div class="modal-header">Detalles del medicamento</div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="control-label col-sm-3">Nombre</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static" data-ng-bind="medication.medication"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Dosis</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static" data-ng-bind="medication.dose"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-3">Horario</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static" data-ng-bind="medication.iterations"></p>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="iterations" class="control-label col-sm-3">Notas</label>
+                <div class="col-sm-9">
+                    <p class="form-control-static" data-ng-bind="medication.notes"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer text-right">
+        <button class="btn btn-danger" data-ng-click="$close(false)">Cerrar</button>
+    </div>
+</div>

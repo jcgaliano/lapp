@@ -10,7 +10,9 @@ angular.module('Platease', [
     'ng-bs3-datepicker',
     'angular-jwt',
     'satellizer',
-    'angular-storage'
+    'angular-storage',
+    'ngFileUpload',
+    'btford.socket-io'
 ]);
 
 angular.module('Platease').constant('angularMomentConfig', {

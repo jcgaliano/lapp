@@ -1,0 +1,16 @@
+<div class="ekg-wrapper" data-ng-if="ekg_path" data-ng-style="{height: svgHeight}">
+    <svg width="100%" height="100%"
+         xmlns="http://www.w3.org/2000/svg"
+         style="background: url('/images/ekg_back.png') repeat scroll #f7f7f7">
+        <path id="ecgPath" ng-attr-d="{{ ekg_path }}" ng-attr-transform="{{ transformCommand }}"
+              fill="transparent" stroke="rgba(0, 0, 0, 0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <div class="ekg-controls">
+        <div class="ekg-arrow arrow-left">
+            <button data-ng-click="moveLeft()" class="ekg-control"><i class="fa fa-arrow-left fa-lg"></i></button>
+        </div>
+        <div class="ekg-arrow arrow-right">
+            <button data-ng-click="moveRight()" class="ekg-control"><i class="fa fa-arrow-right fa-lg"></i></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="modal-header">Lecturas de sensores</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="sensor-table">
+                <thead>
+                    <tr>
+                        <th class="text-center"></th>
+                        <th class="text-center">Parámetro</th>
+                        <th class="text-center">Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="/images/ap_heart_beats.png"></td>
+                        <td>Ritmo Cardiaco</td>
+                        <td>{{ sensors.heart_rate }}</td>
+                    </tr>
+                    <tr>
+                        <td><img src="/images/ap_temp.png"></td>
+                        <td>Temperatura (&ordm;C)</td>
+                        <td>{{ sensors.temperature }}</td>
+                    </tr>
+                    <tr>
+                        <td><img src="/images/ap_weight.png"></td>
+                        <td>Peso (Kg)</td>
+                        <td>{{ sensors.weight }}</td>
+                    </tr>
+                    <tr>
+                        <td><img src="/images/ap_sugar.png"></td>
+                        <td>Glucosa</td>
+                        <td>{{ sensors.glucose_level }}</td>
+                    </tr>
+                    <tr>
+                        <td><img src="/images/ap_size.png"></td>
+                        <td>Talla(m)</td>
+                        <td>{{ sensors.height }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer text-right">
+    <button class="btn btn-danger" data-ng-click="$close(false)">Cerrar</button>
+</div>

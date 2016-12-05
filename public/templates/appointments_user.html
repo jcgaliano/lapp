@@ -1,0 +1,274 @@
+<div class="row">
+    <div class="col-sm-2">
+        <div class="panel header-panel">
+            <div class="panel-body text-center">
+                <a data-ng-click="saveAppointment()" >Aceptar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-sm-offset-1">
+        <div class="panel header-panel">
+            <div class="panel-body text-center">
+                Consulta del Paciente
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 col-sm-offset-1">
+        <div class="panel header-panel">
+            <div class="panel-body text-center">
+                <a data-ng-click="gotoAppointments()" >Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div id="profile_picture" class="profile-picture-wrapper" >
+                            <img data-ng-src="{{ appointment.patient.user.profile_picture ? '/uploads/users_pictures/' + appointment.patient.user.profile_picture : '/images/default-profile.png' }}" />
+                        </div>
+                    </div>
+                    <div class="col-sm-4 patient-info-items">
+                        <p>{{ appointment.patient.user.name }} {{ appointment.patient.user.lastname }}</p>
+                        <p>Edad: {{ actual_date | amDifference : appointment.patient.user.birthday : 'years' }} A&ntilde;os</p>
+                        <p>
+                            <span data-ng-show="appointment.patient.doc_type == 'curp'">
+                                CURP: {{ appointment.patient.id_doc }}
+                            </span>
+                            <span data-ng-show="appointment.patient.doc_type == 'passport'">
+                                Pasaporte: {{ appointment.patient.id_doc }}
+                            </span>
+                        </p>
+                        <p>Id de Dispositivo: {{ appointment.patient.device_id }}</p>
+                        <p>Correo: {{ appointment.patient.user.email }}</p>
+                        <p>Sexo: {{ appointment.patient.user.gender }}</p>
+                        <p>Seguro M&eacute;dico: {{ appointment.patient.medical_insurance }}</p>
+                    </div>
+                    <div class="col-sm-1">
+                        <a data-ui-sref="index.patients_add({id: appointment.patient.id})"><img style="height: 30px;width: 30px;float: right;margin-right: 3px" src="/images/edit.png"></a>
+                    </div>
+                    <div class="col-sm-4 device-status-info">
+                        <div class="vertical-left-border">
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <h3>Estado del dispositivo</h3>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <!--<button class="btn" data-ng-class="{'btn-success': device_status, 'btn-danger': !device_status}" data-ng-click="toggle_device()">-->
+                                        <!--<span data-ng-if="!device_status">Inactivo</span>-->
+                                        <!--<span data-ng-if="device_status">Activo</span>-->
+                                    <!--</button>-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p class="status-message">
+                                        {{ device_status_message }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="panel header-panel">
+            <div class="panel-body">
+                Citas previas
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div  class="panel">
+                    <div class="panel-body no-padding">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha de la cita</th>
+                                    <th>Doctor</th>
+                                    <th>Área</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-if="previous_appointments.length > 0" data-ng-repeat="pa in previous_appointments">
+                                    <td>{{ pa.date }}</td>
+                                    <td>{{ pa.name }} {{ pa.lastname }}</td>
+                                    <td>{{ pa.date }}</td>
+                                    <td class="text-center"><a data-ui-sref="index.patient_appointment_summary_with_referer({id: pa.id, appointmentId: appointment.id})" class="list-action-button"><i class="fa fa-eye"></i></a></td>
+                                </tr>
+                                <tr data-ng-if="previous_appointments.length == 0">
+                                    <td colspan="4" class="text-center">El paciente no tiene citas previas a la actual</td>
+                                </tr>
+                                <tr data-ng-if="loadingPreviousAppointments">
+                                    <td class="text-center" colspan="4"><i class="fa fa-spinner fa-spin"></i> Cargando citas previas</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-2">
+        <div class="panel device-reading-panel">
+            <div class="panel-body text-center">
+                <div>
+                    <img src="/images/ap_heart_beats.png">
+                </div>
+                <p class="screen first">Ritmo Cardiaco</p>
+                <p class="screen">{{ sensors.heart_rate }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="panel device-reading-panel">
+            <div class="panel-body text-center">
+                <div>
+                    <img src="/images/ap_ekg.png">
+                </div>
+                <p class="screen first">Electrocardiograma</p>
+                <p class="screen"><span data-ng-if="ekg_data" data-ng-click="seeEkg()">Ver</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="panel device-reading-panel">
+            <div class="panel-body text-center">
+                <div>
+                    <img src="/images/ap_temp.png">
+                </div>
+                <p class="screen first">Temperatura (&ordm;C)</p>
+                <p class="screen">{{ sensors.temperature }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="panel device-reading-panel">
+            <div class="panel-body text-center">
+                <div>
+                    <img src="/images/ap_weight.png">
+                </div>
+                <p class="screen first">Peso (Kg)</p>
+                <p class="screen">{{ sensors.weight }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="panel device-reading-panel">
+            <div class="panel-body text-center">
+                <div>
+                    <img src="/images/ap_sugar.png">
+                </div>
+                <p class="screen first">Glucosa</p>
+                <p class="screen">{{ sensors.glucose_level }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="panel device-reading-panel">
+            <div class="panel-body text-center">
+                <div>
+                    <img src="/images/ap_size.png">
+                </div>
+                <p class="screen first">Talla(m)</p>
+                <p class="screen">{{ sensors.height }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="panel header-panel">
+                    <div class="panel-body">
+                        Indicaciones
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <texarea text-angular ng-model="appointment.indications"></texarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="panel header-panel">
+                    <div class="panel-body">
+                        Medicamentos
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 col-sm-offset-6">
+                <div class="panel header-panel">
+                    <div class="panel-body">
+                        <span class="span-button" data-ng-click="editMedication()">
+                            <i class="fa fa-plus"></i> Agregar Medicamentos
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div  class="panel" style="padding: 0px;">
+            <div class="panel-body no-padding ">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Medicamento</th>
+                        <th>Dosis</th>
+                        <th>Horario</th>
+                        <th>Notas</th>
+                        <th>Fecha</th>
+                        <th>Operación</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-ng-repeat="med in appointment.medications">
+                            <td>{{ med.medication.medication }}</td>
+                            <td>{{ med.dose }}</td>
+                            <td>{{ med.iterations }}</td>
+                            <td ng-bind-html="med.notes | characters:30:true"></td>
+                            <td>{{ med.created_at | amDateFormat:'DD/MM/YYYY' }}</td>
+                            <td class="text-center">
+                                <span data-ng-click="editMedication(med)" class="list-action-button"><i class="fa fa-edit"></i></span>
+                                <span data-ng-click="removeMedication(med)" class="list-action-button"><i class="fa fa-trash-o"></i></span>
+                            </td>
+                        </tr>
+                        <tr data-ng-show="appointment.medications.length == 0">
+                            <td colspan="6" class="text-center">No ha asignado medicamentos a la cita</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

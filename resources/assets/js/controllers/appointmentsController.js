@@ -52,9 +52,11 @@ angular
         };
 
     }])
-    .controller('NewAppointmentController', ['$scope', 'patients', 'Appointments', '$state', 'appointment', function($scope, patients, Appointments, $state, appointment){
+    .controller('NewAppointmentController', ['$scope', 'patients', 'Appointments', '$state', 'appointment', 'specialties',function($scope, patients, Appointments, $state, appointment, specialties){
 
         $scope.patients = patients;
+
+        $scope.specialties = specialties;
 
         if (appointment != null){
             $scope.appointment = appointment;
@@ -106,6 +108,9 @@ angular
                     },
                     date: {
                         required: true
+                    },
+                    area_id: {
+                        required: true
                     }
                 }
             });
@@ -118,7 +123,7 @@ angular
 
             $scope.datetime = $scope.date + " " + $scope.time.getHours() + ":" + $scope.time.getMinutes();
 
-            Appointments.upsertAppointment(undefined !== appointment && appointment ? appointment.id : null, $scope.datetime, $scope.appointment.patient_id)
+            Appointments.upsertAppointment(undefined !== appointment && appointment ? appointment.id : null, $scope.datetime, $scope.appointment.patient_id, $scope.appointment.area_id)
                 .then(function(res){
                     toastr.success(res.message);
                     $state.go('index.appointments');
@@ -126,4 +131,73 @@ angular
                     toastr.error(res.message);
                 });
         };
+    }])
+    .controller('AppointmentSummaryController', ['$scope', 'user_appointments', function($scope, user_appointments){
+
+        $scope.appointments = user_appointments;
+
+    }])
+    .controller('PreviousAppointmentController', ['$scope', 'appointment', '$stateParams', 'Appointments', 'dialog', '$modal', '$state', function($scope, appointment, $stateParams, Appointments, dialog, $modal, $state){
+
+        if ($stateParams.appointmentId){
+            $scope.previousAppointmentId = $stateParams.appointmentId;
+        }
+
+        $scope.appointment = appointment;
+
+        $scope.loadingResources = true;
+
+        Appointments.getResources($stateParams.id)
+            .then(function(res){
+                $scope.loadingResources = false;
+
+                $scope.resources = res;
+
+            }, function(){
+                $scope.loadingResources = false;
+                dialog.alert('Error', 'Ha ocurrido un error al obtener los recursos asociados a la cita');
+            });
+
+        $scope.showResource = function(resource){
+
+            switch(resource.raw_type){
+                case 'ekg':
+
+                    if (resource.value && resource.value.length > 0){
+
+                        $scope.ekg_data = {
+                            value: resource.value
+                        };
+
+                        $modal.open({
+                            animation: true,
+                            templateUrl: '/templates/modal/ekgModalWithoutSave.html',
+                            size: 'lg',
+                            scope : $scope
+                        });
+                        
+                    } else {
+                        dialog.alert('Error', 'La vista del electrocardiograma no puede ser cargada debido a que este no contiene datos.');
+                    }
+
+                    break;
+                case 'sensors':
+
+                        $scope.hideSaveEkg = true;
+
+                        $scope.sensors = resource.value;
+
+                        $modal.open({
+                            animation: true,
+                            templateUrl: '/templates/modal/sensorsModal.html',
+                            size: 'md',
+                            scope: $scope
+                        });
+
+                    break;
+            }
+
+        };
+
+
     }]);
