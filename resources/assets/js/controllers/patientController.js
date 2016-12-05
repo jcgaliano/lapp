@@ -165,7 +165,7 @@ angular
             $scope.patient = patient;
 
             $modal.open({
-                templateUrl: '/templates/modal/deletepatient.html',
+                templateUrl: '/tesis/templates/modal/deletepatient.html',
                 animation: true,
                 size: 'md',
                 scope : $scope

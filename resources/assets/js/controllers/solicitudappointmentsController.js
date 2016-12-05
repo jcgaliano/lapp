@@ -163,7 +163,7 @@ angular
         //     console.log($scope);
         //     $modal.open({
         //         animation: true,
-        //         templateUrl: '/public/templates/modal/approveapp.html',
+        //         templateUrl: '/public/tesis/templates/modal/approveapp.html',
         //         controller: 'unapprovedAppointmentsController',
         //         size: 'md',
         //         scope : $scope
@@ -185,7 +185,7 @@ angular
         //
         //     $modal.open({
         //         animation: true,
-        //         templateUrl: '/public/templates/modal/deleteunapprovedapp.html',
+        //         templateUrl: '/public/tesis/templates/modal/deleteunapprovedapp.html',
         //         controller: 'unapprovedAppointmentsController',
         //         size: 'md',
         //         scope : $scope

@@ -114,7 +114,7 @@ angular.module('Platease')
                 };
 
             },
-            templateUrl: '/templates/ekg.html',
+            templateUrl: '/tesis/templates/ekg.html',
             replace: true
         };
     }]);
