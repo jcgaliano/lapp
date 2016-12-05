@@ -112,7 +112,7 @@ angular
             });
             $modal.open({
                 animation: true,
-                templateUrl: '/public/templates/modal/newmedication.html',
+                templateUrl: '/tesis/public/templates/modal/newmedication.html',
                 controller: 'appoiment_userController',
                 size: 'md',
                 scope : $scope
@@ -144,7 +144,7 @@ angular
             });
             $modal.open({
                 animation: true,
-                templateUrl: '/public/templates/modal/deletemedication.html',
+                templateUrl: '/tesis/public/templates/modal/deletemedication.html',
                 controller: 'appoiment_userController',
                 size: 'md',
                 scope : $scope
@@ -175,7 +175,7 @@ angular
             console.log($scope);
             $modal.open({
                 animation: true,
-                templateUrl: '/public/templates/modal/newmedication.html',
+                templateUrl: '/tesis/public/templates/modal/newmedication.html',
                 controller: 'appoiment_userController',
                 size: 'md',
                 scope : $scope
@@ -210,7 +210,7 @@ angular
 
             $modal.open({
                 animation: true,
-                templateUrl: '/public/templates/modal/deletepatient.html',
+                templateUrl: '/tesis/public/templates/modal/deletepatient.html',
                 controller: 'appoiment_userController',
                 size: 'md',
                 scope : $scope

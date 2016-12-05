@@ -9,7 +9,7 @@ angular
             $scope.doctor = doctor;
 
             $modal.open({
-                templateUrl: '/templates/modal/deletedoctor.html',
+                templateUrl: '/tesis/templates/modal/deletedoctor.html',
                 animation: true,
                 size: 'md',
                 scope : $scope

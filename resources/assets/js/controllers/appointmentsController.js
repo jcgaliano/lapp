@@ -171,7 +171,7 @@ angular
 
                         $modal.open({
                             animation: true,
-                            templateUrl: '/templates/modal/ekgModalWithoutSave.html',
+                            templateUrl: '/tesis/templates/modal/ekgModalWithoutSave.html',
                             size: 'lg',
                             scope : $scope
                         });
@@ -189,7 +189,7 @@ angular
 
                         $modal.open({
                             animation: true,
-                            templateUrl: '/templates/modal/sensorsModal.html',
+                            templateUrl: '/tesis/templates/modal/sensorsModal.html',
                             size: 'md',
                             scope: $scope
                         });

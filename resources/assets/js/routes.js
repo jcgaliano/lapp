@@ -14,16 +14,16 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
 
         $stateProvider
             .state('login', {
-                templateUrl: '/templates/login_template.html',
+                templateUrl: '/tesis/tesis/templates/login_template.html',
             })
             .state('login.form', {
                 url: '/login',
-                templateUrl: '/templates/login.html',
+                templateUrl: '/tesis/templates/login.html',
                 controller: 'LoginController'
             })
             .state('login.register', {
                 url: '/register',
-                templateUrl: '/templates/register.html',
+                templateUrl: '/tesis/templates/register.html',
                 controller: 'RegisterController',
                 resolve: {
                     specialties: ['Specialty', function(Specialty){
@@ -33,7 +33,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             })
             .state('login.recover', {
                 url: '/recover-password',
-                templateUrl: '/templates/recover.html',
+                templateUrl: '/tesis/templates/recover.html',
                 controller: 'RecoverController'
             })
             .state('logout', {
@@ -41,7 +41,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
                 controller: 'LogoutController'
             })
             .state('index', {
-                templateUrl: '/templates/index_template.html',
+                templateUrl: '/tesis/templates/index_template.html',
                 controller: 'GlobalController',
                 resolve: {
                     user: ['UserData', function(UserData){
@@ -58,7 +58,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.appointments', {
                 url: '/appointments',
                 controller: 'AppointmentsController',
-                templateUrl: '/templates/appointments.html',
+                templateUrl: '/tesis/templates/appointments.html',
                 resolve: {
                     user_appointments: ['Appointments', function(Appointments){
                         return Appointments.getAllAppoiments();
@@ -68,7 +68,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.appointments_add', {
                 url: '/appointments/new',
                 controller: 'NewAppointmentController',
-                templateUrl: '/templates/newAppointment.html',
+                templateUrl: '/tesis/templates/newAppointment.html',
                 resolve: {
                     patients: ['Patients', function(Patients){
                         return Patients.getAllPatients();
@@ -84,7 +84,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.appointment_details', {
                 url: '/appointment-details/:id',
                 controller: 'appointmentDetailsController',
-                templateUrl: '/templates/appointments_user.html',
+                templateUrl: '/tesis/templates/appointments_user.html',
                 resolve: {
                     appointment: ['Appointments', '$stateParams', function(Appointments, $stateParams){
                         return Appointments.getAppointmentDetails($stateParams.id);
@@ -97,7 +97,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.appointments_edit', {
                 url: '/appointments/edit/:id',
                 controller: 'NewAppointmentController',
-                templateUrl: '/templates/newAppointment.html',
+                templateUrl: '/tesis/templates/newAppointment.html',
                 resolve: {
                     patients: ['Patients', function(Patients){
                         return Patients.getAllPatients();
@@ -113,7 +113,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.appointment_requests', {
                 url: '/appointment-requests',
                 controller: 'UnapprovedAppointmentsController',
-                templateUrl: '/templates/solicitarappointments.html',
+                templateUrl: '/tesis/templates/solicitarappointments.html',
                 resolve: {
                     apmt_requests: ['Appointments', function(Appointments){
                         return Appointments.getPendingRequests();
@@ -123,7 +123,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.appointment_requests_add', {
                 url: '/appointment-requests/add',
                 controller: 'NewAppointmentRequestController',
-                templateUrl: '/templates/newAppointmentRequest.html',
+                templateUrl: '/tesis/templates/newAppointmentRequest.html',
                 resolve: {
                     doctors: ['Doctor', function(Doctor){
                         return Doctor.getAllDoctors();
@@ -133,7 +133,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.doctor_profile', {
                 url: '/doctor-profile',
                 controller: 'update_DoctorController',
-                templateUrl: '/templates/update_profile.html',
+                templateUrl: '/tesis/templates/update_profile.html',
                 resolve: {
                     specialties: ['Specialty', function(Specialty){
                         return Specialty.getAll();
@@ -143,12 +143,12 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.patients', {
                 url: '/patients',
                 controller: 'PatientsController',
-                templateUrl: '/templates/patients.html'
+                templateUrl: '/tesis/templates/patients.html'
             })
             .state('index.patients_add', {
                 url: '/patients/edit/:id',
                 controller: 'AddPatientController',
-                templateUrl: '/templates/patient.html',
+                templateUrl: '/tesis/templates/patient.html',
                 resolve: {
                     patient: ['Patients', '$stateParams', function(Patients, $stateParams){
 
@@ -164,7 +164,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.patient_profile', {
                 url: '/patient-profile',
                 controller: 'PatientProfileController',
-                templateUrl: '/templates/patient_profile.html',
+                templateUrl: '/tesis/templates/patient_profile.html',
                 resolve: {
                     patient: ['Patients', function(Patients){
                         return Patients.getLoggedPatient();
@@ -174,7 +174,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.patient_medications', {
                 url: '/patient-medications',
                 controller: 'PatientMedicationsController',
-                templateUrl: '/templates/patient_medications.html',
+                templateUrl: '/tesis/templates/patient_medications.html',
                 resolve: {
                     meds: ['Medications', function(Medications){
                         return Medications.getCurrentForUser();
@@ -184,17 +184,17 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.supervisor_profile', {
                 url: '/supervisor-profile',
                 controller: 'SupervisorProfileController',
-                templateUrl: '/templates/update_profile_supervisor.html',
+                templateUrl: '/tesis/templates/update_profile_supervisor.html',
             })
             .state('index.monitoring', {
                 url: '/monitoring',
                 controller: 'sensorsController',
-                templateUrl: '/templates/sensors.html'
+                templateUrl: '/tesis/templates/sensors.html'
             })
             .state('index.patient_appointment_details', {
                 url: '/done-appointments',
                 controller: 'AppointmentSummaryController',
-                templateUrl: '/templates/appointment_details.html',
+                templateUrl: '/tesis/templates/appointment_details.html',
                 resolve: {
                     user_appointments: ['Appointments', function(Appointments){
                         return Appointments.getDoneAppoiments();
@@ -204,7 +204,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.patient_appointment_summary', {
                 url: '/appointments-summary/:id',
                 controller: 'PreviousAppointmentController',
-                templateUrl: '/templates/previous_appointment.html',
+                templateUrl: '/tesis/templates/previous_appointment.html',
                 resolve: {
                     appointment: ['Appointments', '$stateParams', function(Appointments, $stateParams){
                         return Appointments.getAppointmentDetails($stateParams.id);
@@ -214,7 +214,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             .state('index.patient_appointment_summary_with_referer', {
                 url: '/appointments-summary/:id/:appointmentId',
                 controller: 'PreviousAppointmentController',
-                templateUrl: '/templates/previous_appointment.html',
+                templateUrl: '/tesis/templates/previous_appointment.html',
                 resolve: {
                     appointment: ['Appointments', '$stateParams', function(Appointments, $stateParams){
                         return Appointments.getAppointmentDetails($stateParams.id);
@@ -223,7 +223,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             })
             .state('index.super_doctors', {
                 url: '/doctors',
-                templateUrl: '/templates/doctors_new.html',
+                templateUrl: '/tesis/templates/doctors_new.html',
                 controller: 'DoctorsController',
                 resolve: {
                     doctors: ['Doctor', function(Doctor){
@@ -233,7 +233,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             })
             .state('index.super_pending_doctors', {
                 url: '/doctors-pending',
-                templateUrl: '/templates/doctors_pending.html',
+                templateUrl: '/tesis/templates/doctors_pending.html',
                 controller: 'PendingDoctorsController',
                 resolve: {
                     pending_doctors: ['Doctor', function(Doctor){
@@ -243,7 +243,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             })
             .state('index.super_doctor_profile', {
                 url: '/doctor/:id',
-                templateUrl: '/templates/doctor_profile.html',
+                templateUrl: '/tesis/templates/doctor_profile.html',
                 controller: 'SupervisorDoctorProfileController',
                 resolve: {
                     doctor: ['Doctor', '$stateParams', function(Doctor, $stateParams){
@@ -256,7 +256,7 @@ angular.module('Platease').config(['$stateProvider', '$urlRouterProvider', '$htt
             })
             .state('index.super_pending_doctor_profile', {
                 url: '/pending-doctor/:id',
-                templateUrl: '/templates/doctor_small.html',
+                templateUrl: '/tesis/templates/doctor_small.html',
                 controller: 'SupervisorSmallDoctorProfileController',
                 resolve: {
                     doctor: ['Doctor', '$stateParams', function(Doctor, $stateParams){
